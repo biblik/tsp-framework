@@ -79,6 +79,7 @@ public class Main {
 				System.err.println("\t-v\t\t: trace level");
 				System.err
 						.println("\t-g\t\t: if stated, requires a graphical representation of the solution.");
+				return;
 
 			} else if (arg[i].compareTo("-v") == 0) {
 				verbose = true;
