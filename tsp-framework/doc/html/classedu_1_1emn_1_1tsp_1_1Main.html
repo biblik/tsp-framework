@@ -97,15 +97,11 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:ad9bbacb9527b5ee1e295018a9a264dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class contains the main function, that is the function that is launched when the program is run. <br/>
- <br/>
- DO NOT WRITE OR MODIFY THIS CLASS. <br/>
- <br/>
- Read the description of the <code>main</code> method below, it describes how to set some parameters for the program (such as the filename of the problem to solve). <br/>
- <br/>
- When the program is run, the input data file is loaded in an <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a></code> object. A <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a></code> object is then created, given the <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a></code> object, and its <code>solve()</code> method is called. This is where you have to code your algorithms. <br/>
- <br/>
- The class to be modified is <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a></code>, from where you may also create your own classes.</p>
+<div class="textblock"><p>This class contains the <a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> function, that is the function that is launched when the program is run.</p>
+<p>DO NOT WRITE OR MODIFY THIS CLASS.</p>
+<p>Read the description of the <a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> method below, it describes how to set some parameters for the program (such as the filename of the problem to solve).</p>
+<p>When the program is run, the input data file is loaded in an <a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a> object. A <a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a> object is then created, given the <a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a> object, and its solve method <a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html#a30de3860bd2d542d729c2932dc795f82">TSPSolver::solve</a> is called. This is where you have to code your algorithms.</p>
+<p>The class to be modified is <a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a>&lt;, from where you may also create your own classes.</p>
 <dl class="section author"><dt>Author</dt><dd>Damien Prot, Fabien Lehuédé 2012 </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ad9bbacb9527b5ee1e295018a9a264dd3"></a>
@@ -129,15 +125,12 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p><a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> method. DO NOT MODIFY THIS METHOD. <br/>
- <br/>
- The parameters of the java program are described below: <br/>
- command: <code>java <a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> [options] datafile</code> <br/>
- Options: -help : prints this parameter description -t (int) : maximum number of seconds given to the algorithm -v : trace level (print the solution at the end if true) -g : if stated, requires a graphical representation of the solution. <br/>
- <br/>
-</p>
-<p>Program output: fileName;routeLength;time;e <br/>
- e is an error code : e = 0 -&gt; the solution is feasible and returned within the time limit. e = 1 -&gt; unfeasible solution. e= 2 -&gt; overtime</p>
+<p><a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> method. DO NOT MODIFY THIS METHOD.</p>
+<p>The parameters of the java program are described below: <b>command</b>: java <a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> [options] datafile <b>Options</b>: - -help : prints this parameter description - -t (int) :maximum number of seconds given to the algorithm</p>
+<ul>
+<li>-v : trace level (print the solution at the end if true) - -g : if stated, requires a graphical representation of the solution.</li>
+</ul>
+<p><b>Program output</b>: fileName;routeLength;time;e e is an error code: - e = 0 -&gt; the solution is feasible and returned within the time limit - e = 1 -&gt; unfeasible solution - e= 2 -&gt; overtime.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">arg</td><td>program parameters. </td></tr>
@@ -153,7 +146,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 28 2015 15:00:03 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 28 2015 15:42:54 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

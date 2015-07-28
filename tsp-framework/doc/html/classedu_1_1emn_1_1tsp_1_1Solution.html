@@ -120,51 +120,31 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a68788dbed668e62eb4682799b7f01c9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class models a TSP solution.</p>
-<p><br/>
- <br/>
- <b>Internal structure of the class:</b></p>
-<p><br/>
- This solution itself is stored in the array <a class="el" href="">m_solution</a>. <br/>
- <code>m_solution[i]</code> should be the index of the element at index i in the solution.</p>
-<p><br/>
- The attribute <a class="el" href="">m_nbVertices</a> is the number of vertices in the problem. <br/>
- The array <code>m_solution</code> has size <code>m_nbVertices+1</code> and it should start with the first vertex for the route and end with the same vertex.</p>
-<p><br/>
- For example, suppose a problem with 5 customers (hence, the corresponding vertices index range from 0 to 4), the following array represents a TSP solution (tour) that visit all customers by index order:</p>
-<p><br/>
- <code>m_solution = [0, 1, 2, 3, 4, 0];</code></p>
-<p><br/>
- <br/>
- A recommendation is to always have <code>m_solution[0]=m_solution[m_nbVertices]= 0</code>.</p>
-<p><br/>
- <br/>
- So a complete feasible solution should respect the following rules:  <code>m_solution[0]=m_solution[m_nbVertices]</code> Apart from the vertex at indices 0 and <code>m_nbVertices</code>, each customer index should be represented once and only one in <code>m_solution</code>.</p>
-<p><br/>
- <br/>
- <b>Creating, accessing or modifying a solution:</b></p>
-<p><br/>
- A <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html">Solution</a></code> object is created for a given TSP problem, represented by an <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a></code> object. <br/>
- Let <code>ist</code> be an object of class <a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a>, the following code creates a solution for this problem:</p>
-<p><br/>
- <br/>
- <code> <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html">Solution</a> mysol = new Solution(ist); </code></p>
-<p><br/>
- <br/>
- During its creation, this object is initialized with vertex 0 at all position. It should be modified to represent a feasible solution. <br/>
- This modification is done by the method <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#a58972271e1cf6d2995ccd8c5ae605284">setVertexPosition(int s, int i)</a>, which sets vertex s at position i in the solution. For example, the following code creates a TSP solution that visits all customers in increasing vertex order: <br/>
- <br/>
- <code> for (int i=0; i &lt; ist.getNbVertices(); i++) { mysol.setVertexPosition(i, i); } mysol.setVertexPosition(0, ist.getNbVertices()); </code></p>
-<p><br/>
- <br/>
- To explore a <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html">Solution</a> object, the vertex at position i can be obtained calling <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#a6c1fc3b98a10add7fa3650362cbc2ff6">getSolution(int)</a>.</p>
-<p><br/>
- The <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#a79c32ba59c64d470df06685e6d3ee268">validate()</a> method allows to check the feasibility of a solution.</p>
-<p><br/>
- To calculate the cost of a solution, you can call <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#abaf67f80bc044b16c4de3be1901ec17c">evaluate()</a>.</p>
-<p><br/>
- <br/>
- Note that <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#abaf67f80bc044b16c4de3be1901ec17c">evaluate()</a> recomputes every distance from zero. If you do a slight modification of the solution it is less time consuming to update yourself the cost of the modified solution using the function <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#a7f8bd5fdcb762df8c7a7d648bc184363">setObjective(long newval )</a>.</p>
+<div class="textblock"><p>This class models a TSP <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html">Solution</a>.</p>
+<p><b>Internal structure of the class:</b></p>
+<p>This solution itself is stored in the array <a class="el" href="">m_solution</a>. <a class="el" href="">m_solution[i]</a> should be the index of the element at index i in the solution.</p>
+<p>The attribute <a class="el" href="">m_nbVertices</a> is the number of vertices in the problem. The array <a class="el" href="">m_solution</a> has size m_nbVertices+1 and it should start with the first vertex for the route and end with the same vertex.</p>
+<p>For example, suppose a problem with 5 customers (hence, the corresponding vertices index range from 0 to 4). The following array represents a TSP solution (tour) that visit all customers by index order:</p>
+<div class="fragment"><div class="line">m_solution = [0, 1, 2, 3, 4, 0];</div>
+</div><!-- fragment --><p>A recommendation is to always have <b>m_solution[0]=m_solution[m_nbVertices]= 0</b>.</p>
+<p>So a complete feasible solution should respect the following rules:</p>
+<ul>
+<li>m_solution[0]=m_solution[m_nbVertices]</li>
+<li>Apart from the vertex at indices 0 and <a class="el" href="">m_nbVertices</a>, each customer index should be represented once and only one in <a class="el" href="">m_solution</a>.</li>
+</ul>
+<p>** Creating, accessing or modifying a solution:**</p>
+<p>A <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html">Solution</a> object is created for a given TSP problem, represented by an <a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a> object. Let ist be an object of class <a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a>, the following code creates a solution for this problem:</p>
+<div class="fragment"><div class="line"><a class="code" href="classedu_1_1emn_1_1tsp_1_1Solution.html#ac34eb8d65c8532eee8411065c36c7cee">Solution</a> mysol = <span class="keyword">new</span> <a class="code" href="classedu_1_1emn_1_1tsp_1_1Solution.html#ac34eb8d65c8532eee8411065c36c7cee">Solution</a>(ist);</div>
+</div><!-- fragment --><p>During its creation, this object is initialized with vertex 0 at all position. It should be modified to represent a feasible solution. This modification is done by the method <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#a58972271e1cf6d2995ccd8c5ae605284">setVertexPosition(int s, int i)</a>, which sets vertex s at position i in the solution. For example, the following code creates a TSP solution that visits all customers in increasing vertex order:</p>
+<div class="fragment"><div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; ist.getNbVertices(); i++)</div>
+<div class="line">{</div>
+<div class="line">    mysol.setVertexPosition(i, i);</div>
+<div class="line">}</div>
+<div class="line">mysol.setVertexPosition(0, ist.getNbVertices());</div>
+</div><!-- fragment --><p>To explore a <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html">Solution</a> object, the vertex at position i can be obtained calling <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#a6c1fc3b98a10add7fa3650362cbc2ff6">getSolution(int)</a>.</p>
+<p>The <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#a79c32ba59c64d470df06685e6d3ee268">validate()</a> method allows to check the feasibility of a solution.</p>
+<p>To calculate the cost of a solution, you can call <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#abaf67f80bc044b16c4de3be1901ec17c">evaluate()</a>.</p>
+<p>Note that <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#abaf67f80bc044b16c4de3be1901ec17c">evaluate()</a> recomputes every distance from zero. If you do a slight modification of the solution it is less time consuming to update yourself the cost of the modified solution using the function <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html#a7f8bd5fdcb762df8c7a7d648bc184363">setObjective(long newval )</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>Fabien Lehuédé </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac34eb8d65c8532eee8411065c36c7cee"></a>
@@ -440,7 +420,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 28 2015 15:00:03 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 28 2015 15:42:54 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -22,22 +22,21 @@ package edu.emn.tsp;
 import java.io.IOException;
 
 /**
- * This class contains the main function, that is the function that is launched
- * when the program is run. <br>
- * <br>
- * DO NOT WRITE OR MODIFY THIS CLASS. <br>
- * <br>
- * Read the description of the <code>main</code> method below, it describes how
- * to set some parameters for the program (such as the filename of the problem
- * to solve). <br>
- * <br>
- * When the program is run, the input data file is loaded in an
- * <code>Instance</code> object. A <code>TSPSolver</code> object is then
- * created, given the <code>Instance</code> object, and its <code>solve()</code>
- * method is called. This is where you have to code your algorithms. <br>
- * <br>
- * The class to be modified is <code>TSPSolver</code>, from where you may also
- * create your own classes.
+ * This class contains the Main function, that is the function that is launched
+ * when the program is run.
+ * 
+ * DO NOT WRITE OR MODIFY THIS CLASS.
+ * 
+ * Read the description of the Main method below, it describes how to set some
+ * parameters for the program (such as the filename of the problem to solve).
+ * 
+ * When the program is run, the input data file is loaded in an Instance object.
+ * A TSPSolver object is then created, given the Instance object, and its solve
+ * method TSPSolver::solve is called. This is where you have to code your
+ * algorithms.
+ * 
+ * The class to be modified is TSPSolver<, from where you may also create your
+ * own classes.
  * 
  * @author Damien Prot, Fabien Lehuédé 2012
  * 
@@ -45,20 +44,17 @@ import java.io.IOException;
 public class Main {
 
 	/**
-	 * Main method. DO NOT MODIFY THIS METHOD. <br>
-	 * <br>
-	 * The parameters of the java program are described below: <br>
-	 * command: <code>java Main [options] datafile</code> <br>
-	 * Options: <li>-help : prints this parameter description <li>-t (int) :
-	 * maximum number of seconds given to the algorithm <li>-v : trace level
-	 * (print the solution at the end if true) <li>-g : if stated, requires a
-	 * graphical representation of the solution. <br>
-	 * <br>
+	 * Main method. DO NOT MODIFY THIS METHOD.
 	 * 
-	 * Program output: fileName;routeLength;time;e <br>
-	 * e is an error code : <li>e = 0 -> the solution is feasible and returned
-	 * within the time limit. <li>e = 1 -> unfeasible solution. <li>e= 2 ->
-	 * overtime
+	 * The parameters of the java program are described below: **command**: java
+	 * Main [options] datafile **Options**: - -help : prints this parameter
+	 * description - -t (int) :maximum number of seconds given to the algorithm
+	 * - -v : trace level (print the solution at the end if true) - -g : if
+	 * stated, requires a graphical representation of the solution.
+	 * 
+	 * **Program output**: fileName;routeLength;time;e e is an error code: - e =
+	 * 0 -> the solution is feasible and returned within the time limit - e = 1
+	 * -> unfeasible solution - e= 2 -> overtime.
 	 * 
 	 * @param arg
 	 *            program parameters.
@@ -69,20 +65,20 @@ public class Main {
 		boolean verbose = false;
 		boolean graphical = false;
 
-		// --- parse command-line ---
+		// Parse commande line
 		for (int i = 0; i < arg.length; i++) {
 			if (arg[i].compareTo("-help") == 0) {
 				System.err.println("The Traveling Salesman Problem");
 				System.err.println("Program parameters:");
-				System.err.println("command: java Main [options] instanceFile");
+				System.err.println("command: java Main [options] dataFile");
 				System.err.println("Options:");
 				System.err
-						.println("  -help     : prints this parameter description");
+						.println("\t-help\t: prints this parameter description");
 				System.err
-						.println("  -t (int)  : maximum number of seconds given to the algorithm");
-				System.err.println("  -v        : trace level");
+						.println("\t-t\t\t: maximum number of seconds given to the algorithm (int)");
+				System.err.println("\t-v\t\t: trace level");
 				System.err
-						.println("  -g        : if stated, requires a graphical representation of the solution.");
+						.println("\t-g\t\t: if stated, requires a graphical representation of the solution.");
 
 			} else if (arg[i].compareTo("-v") == 0) {
 				verbose = true;
@@ -108,10 +104,11 @@ public class Main {
 			}
 		}
 
-		// --- create and solve problems ---
+		// Create and solve problem
 		try {
+			// Create a new problem
 			TSPSolver tsp = new TSPSolver();
-			// create a new problem; data is read from file filename
+			// Read data
 			Instance prob = new Instance(filename);
 			tsp.setInstance(prob);
 			tsp.setSolution(new Solution(prob));
@@ -120,21 +117,15 @@ public class Main {
 			// print the data [uncomment if wanted]
 			// prob.printData(System.err);
 
-			// solve the problem
+			// Solve the problem
 			long t = System.currentTimeMillis();
 			tsp.solve();
 			t = System.currentTimeMillis() - t;
 
-			// evaluate the solution (and check whether it is feasible)
+			// Evaluate the solution (and check whether it is feasible)
 
 			boolean feasible = tsp.getSolution().validate();
 
-			// program output: fileName;routeLength;t;e
-			// e is an error code :
-			// e = 0 -> the solution is feasible and returned within the time
-			// limit.
-			// e = 1 -> unfeasible solution.
-			// e= 2 -> time limit exceeded
 			int e = 0;
 			if (!feasible) {
 				e = 1;
@@ -148,7 +139,7 @@ public class Main {
 			System.out.println(filename + ";"
 					+ tsp.getSolution().getObjective() + ";" + t + ";" + e);
 
-			// if verbose, print the solution
+			// If verbose, print the solution
 			if (verbose) {
 				prob.print(System.err);
 				tsp.getSolution().print(System.err);

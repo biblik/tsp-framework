@@ -24,91 +24,60 @@ import java.util.Arrays;
 
 /**
  * 
- * This class models a TSP solution.
+ * This class models a TSP Solution.
+ * 
+ * **Internal structure of the class:**
+ * 
+ * This solution itself is stored in the array {@link m_solution}.
+ * {@link m_solution[i]} should be the index of the element at index i in the solution.
+ * 
+ * The attribute {@link m_nbVertices} is the number of vertices in the problem.
+ * The array {@link m_solution} has size m_nbVertices+1 and it should start with the first vertex for the route and end with the same vertex.
+ * 
+ * For example, suppose a problem with 5 customers (hence, the corresponding vertices index range from 0 to 4).
+ * The following array represents a TSP solution (tour) that visit all customers by index order:
+ * 
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * m_solution = [0, 1, 2, 3, 4, 0];
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * 
  * 
- * <br>
- * <br>
- * <b>Internal structure of the class:</b>
+ * A recommendation is to always have **m_solution[0]=m_solution[m_nbVertices]= 0**.
  * 
- * <br>
- * This solution itself is stored in the array {@link #m_solution}. <br>
- * <code>m_solution[i]</code> should be the index of the element at index i in
- * the solution.
+ * So a complete feasible solution should respect the following rules:
+ * 	- m_solution[0]=m_solution[m_nbVertices]
+ * 	- Apart from the vertex at indices 0 and {@link m_nbVertices}, each customer index should be represented once and only one in {@link m_solution}.
  * 
- * <br>
- * The attribute {@link #m_nbVertices} is the number of vertices in the problem. <br>
- * The array <code>m_solution</code> has size <code>m_nbVertices+1</code> and it
- * should start with the first vertex for the route and end with the same
- * vertex.
+ * ** Creating, accessing or modifying a solution:**
  * 
- * <br>
- * For example, suppose a problem with 5 customers (hence, the corresponding
- * vertices index range from 0 to 4), the following array represents a TSP
- * solution (tour) that visit all customers by index order:
+ * A Solution object is created for a given TSP problem, represented by an Instance object.
+ * Let ist be an object of class {@link Instance}, the following code creates a solution for this problem:
  * 
- * <br>
- * <code>m_solution = [0, 1, 2, 3, 4, 0];</code>
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Solution mysol = new Solution(ist);
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * 
- * <br>
- * <br>
- * A recommendation is to always have
- * <code>m_solution[0]=m_solution[m_nbVertices]= 0</code>.
  * 
- * <br>
- * <br>
- * So a complete feasible solution should respect the following rules: <li>
- * <code>m_solution[0]=m_solution[m_nbVertices]</code> <li>Apart from the vertex
- * at indices 0 and <code>m_nbVertices</code>, each customer index should be
- * represented once and only one in <code>m_solution</code>.
+ * During its creation, this object is initialized with vertex 0 at all position. It should be modified to represent a feasible solution.
+ * This modification is done by the method {@link #setVertexPosition(int s, int i)}, which sets vertex s at position i in the solution.
+ * For example, the following code creates a TSP solution that visits all customers in increasing vertex order:
  * 
- * <br>
- * <br>
- * <b>Creating, accessing or modifying a solution:</b>
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * for(int i=0; i < ist.getNbVertices(); i++)
+ * {
+ * 	mysol.setVertexPosition(i, i);
+ * }
+ * mysol.setVertexPosition(0, ist.getNbVertices());
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * 
- * <br>
- * A <code>Solution</code> object is created for a given TSP problem,
- * represented by an <code>Instance</code> object. <br>
- * Let <code>ist</code> be an object of class {@link Instance}, the following
- * code creates a solution for this problem:
+ * To explore a {@link Solution} object, the vertex at position i can be obtained calling {@link #getSolution(int)}.
  * 
- * <br>
- * <br>
- * <code> Solution mysol = new Solution(ist); </code>
- * 
- * <br>
- * <br>
- * During its creation, this object is initialized with vertex 0 at all
- * position. It should be modified to represent a feasible solution. <br>
- * This modification is done by the method
- * {@link #setVertexPosition(int s, int i)}, which sets vertex s at position i
- * in the solution. For example, the following code creates a TSP solution that
- * visits all customers in increasing vertex order: <br>
- * <br>
- * <code>
- * 	for (int i=0; i < ist.getNbVertices(); i++) {
- * 		mysol.setVertexPosition(i, i);
- * 	}
- *  mysol.setVertexPosition(0, ist.getNbVertices());
- * </code>
- * 
- * <br>
- * <br>
- * To explore a {@link Solution} object, the vertex at position i can be
- * obtained calling {@link #getSolution(int)}.
- * 
- * <br>
  * The {@link #validate()} method allows to check the feasibility of a solution.
  * 
- * <br>
  * To calculate the cost of a solution, you can call {@link #evaluate()}.
  * 
- * <br>
- * <br>
- * Note that {@link #evaluate()} recomputes every distance from zero. If you do
- * a slight modification of the solution it is less time consuming to update
- * yourself the cost of the modified solution using the function
- * {@link #setObjective(long newval )}.
+ * Note that {@link #evaluate()} recomputes every distance from zero. If you do a slight modification of the solution it is less time consuming to update
+ * yourself the cost of the modified solution using the function {@link #setObjective(long newval )}.
  * 
  * 
  * @author Fabien Lehuédé

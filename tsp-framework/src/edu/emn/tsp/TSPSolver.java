@@ -21,33 +21,27 @@ package edu.emn.tsp;
 
 /**
  * 
- * This class is the place where you should enter your code and from which you
- * can create your own objects. <br>
- * <br>
- * The method you must implement is <code>solve()</code>. This method is called
- * by the programmer after loading the data. <br>
- * <br>
- * The <code>TSPSolver</code> object is created by the <code>Main</code> class. <br>
- * The other objects that are created in <code>Main </code> can be accessed
- * through the following <code>TSPSolver</code> attributes: <li>
- * <code>m_instance</code> the <code>Instance</code> object which contains the
- * problem data. <li><code>m_solution</code> the <code>Solution</code> object to
- * modify. This object will store the result of the program. <li>
- * <code>m_time</code> the maximum time limit (in seconds) given to the program.
- * <br>
- * <br>
+ * This class is the place where you should enter your code and from which you can create your own objects.
  * 
+ * The method you must implement is solve(). This method is called by the programmer after loading the data.
+ * 
+ * The TSPSolver object is created by the Main class.
+ * The other objects that are created in Main can be accessed through the following TSPSolver attributes: 
+ * 	- {@link m_instance} :  the Instance object which contains the problem data
+ * 	- {@link m_solution} : the Solution object to modify. This object will store the result of the program.
+ * 	- {@link m_time} : the maximum time limit (in seconds) given to the program.
+ *  
  * @author Damien Prot, Fabien Lehuédé 2012
  * 
  */
 public class TSPSolver {
 
-	// --------------------------------------------
-	// --------------- ATTRIBUTS ------------------
-	// --------------------------------------------
+	// ---------------------------------------------
+	// --------------- ATTRIBUTES ------------------
+	// ---------------------------------------------
 
 	/**
-	 * The traveling salesman problem solution that will be returned by the
+	 * The Traveling Salesman Problem Solution that will be returned by the
 	 * program
 	 */
 	private Solution m_solution;
@@ -65,7 +59,7 @@ public class TSPSolver {
 	// These methods allow to access the class attributes from outside the
 	// class.
 
-	/** @return the problem solution */
+	/** @return the problem Solution */
 	public Solution getSolution() {
 		return m_solution;
 	}
@@ -116,26 +110,16 @@ public class TSPSolver {
 	// --------------------------------------
 
 	/**
-	 * TODO Modify this method to solve the problem.
+	 * **TODO** Modify this method to solve the problem.
 	 * 
-	 * <br>
-	 * Do not print text on the standard output (eg. using
-	 * <code>System.out.print()</code> or <code>System.out.println()</code>.
-	 * This output is dedicated to the result analyzer that will be used to
-	 * evaluate your code on multiple instances.
+	 * Do not print text on the standard output (eg. using <code>System.out.print()</code> or <code>System.out.println()</code>).
+	 * This output is dedicated to the result analyzer that will be used to evaluate your code on multiple instances.
 	 * 
-	 * <br>
-	 * You can print using the error output (
-	 * <code>System.err.print/println</code>).
+	 * You can print using the error output (<code>System.err.print()</code> or <code>System.err.println()</code>).
 	 * 
-	 * <br>
-	 * When your algorithm terminates, make sure the attribute
-	 * <code>m_solution</code> in this class points to the solution you want to
-	 * return.
+	 * When your algorithm terminates, make sure the attribute {@link m_solution} in this class points to the solution you want to return.
 	 * 
-	 * <br>
-	 * You have to make sure that your algorithm does not take more time than
-	 * the time limit <code>m_time</code>.
+	 * You have to make sure that your algorithm does not take more time than the time limit {@link m_time}.
 	 * 
 	 * @throws Exception
 	 *             May return some error, in particular if some vertices index

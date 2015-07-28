@@ -109,14 +109,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a30de3860bd2d542d729c2932dc795f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class is the place where you should enter your code and from which you can create your own objects. <br/>
- <br/>
- The method you must implement is <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html#a30de3860bd2d542d729c2932dc795f82">solve()</a></code>. This method is called by the programmer after loading the data. <br/>
- <br/>
- The <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a></code> object is created by the <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a></code> class. <br/>
- The other objects that are created in <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> </code> can be accessed through the following <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a></code> attributes:  <code>m_instance</code> the <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a></code> object which contains the problem data. <code>m_solution</code> the <code><a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html">Solution</a></code> object to modify. This object will store the result of the program.  <code>m_time</code> the maximum time limit (in seconds) given to the program. <br/>
- <br/>
-</p>
+<div class="textblock"><p>This class is the place where you should enter your code and from which you can create your own objects.</p>
+<p>The method you must implement is <a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html#a30de3860bd2d542d729c2932dc795f82">solve()</a>. This method is called by the programmer after loading the data.</p>
+<p>The <a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a> object is created by the <a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> class. The other objects that are created in <a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> can be accessed through the following <a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a> attributes:</p>
+<ul>
+<li><a class="el" href="">m_instance</a> : the <a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a> object which contains the problem data</li>
+<li><a class="el" href="">m_solution</a> : the <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html">Solution</a> object to modify. This object will store the result of the program.</li>
+<li><a class="el" href="">m_time</a> : the maximum time limit (in seconds) given to the program.</li>
+</ul>
 <dl class="section author"><dt>Author</dt><dd>Damien Prot, Fabien Lehuédé 2012 </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a9ae4924be357a671184fc6571fb48dc5"></a>
@@ -147,7 +147,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the problem solution </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the problem <a class="el" href="classedu_1_1emn_1_1tsp_1_1Solution.html">Solution</a> </dd></dl>
 
 </div>
 </div>
@@ -248,15 +248,11 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>TODO Modify this method to solve the problem.</p>
-<p><br/>
- Do not print text on the standard output (eg. using <code>System.out.print()</code> or <code>System.out.println()</code>. This output is dedicated to the result analyzer that will be used to evaluate your code on multiple instances.</p>
-<p><br/>
- You can print using the error output ( <code>System.err.print/println</code>).</p>
-<p><br/>
- When your algorithm terminates, make sure the attribute <code>m_solution</code> in this class points to the solution you want to return.</p>
-<p><br/>
- You have to make sure that your algorithm does not take more time than the time limit <code>m_time</code>.</p>
+<p><b>TODO</b> Modify this method to solve the problem.</p>
+<p>Do not print text on the standard output (eg. using <code>System.out.print()</code> or <code>System.out.println()</code>). This output is dedicated to the result analyzer that will be used to evaluate your code on multiple instances.</p>
+<p>You can print using the error output (<code>System.err.print()</code> or <code>System.err.println()</code>).</p>
+<p>When your algorithm terminates, make sure the attribute <a class="el" href="">m_solution</a> in this class points to the solution you want to return.</p>
+<p>You have to make sure that your algorithm does not take more time than the time limit <a class="el" href="">m_time</a>.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">Exception</td><td>May return some error, in particular if some vertices index are wrong. </td></tr>
@@ -272,7 +268,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 28 2015 15:00:03 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 28 2015 15:42:54 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
