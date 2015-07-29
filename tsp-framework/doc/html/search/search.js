@@ -7,16 +7,10 @@
 
 var indexSectionsWithContent =
 {
-  0: "degimprstv",
-  1: "dimst",
-  2: "degimprsv"
 };
 
 var indexSectionNames =
 {
-  0: "all",
-  1: "classes",
-  2: "functions"
 };
 
 function convertToId(search)
