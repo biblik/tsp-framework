@@ -33,9 +33,9 @@ Run this command (this command will show the help).
 
 1. Create a bin directory (if not exist)  
 `mkdir bin`
-2. Compil the project
+2. Compil the project  
 `javac -d bin/ src/edu/emn/tsp/*.java -cp lib/visuBeta.jar` 
-3. Run the program
+3. Run the program  
 `java -cp ./bin/:lib/visuBeta.jar -Djava.library.path=./lib/ edu.emn.tsp.Main -help `
 
 #INSTANCES
@@ -55,9 +55,9 @@ The script produces two files:
 
 The script executes the framework over all instances. In a terminal:
 
-1. Go to the *benchmark* directory 
+1. Go to the *benchmark* directory  
 `cd benchmark`
-2. Run the script
+2. Run the script  
 `bash scriptUnix.sh`
 
 #DOCUMENTATION
