@@ -35,7 +35,7 @@ import java.io.IOException;
  * method TSPSolver::solve is called. This is where you have to code your
  * algorithms.
  * 
- * The class to be modified is TSPSolver<, from where you may also create your
+ * The class to be modified is TSPSolver, from where you may also create your
  * own classes.
  * 
  * @author Damien Prot, Fabien Lehuédé 2012
@@ -47,14 +47,20 @@ public class Main {
 	 * Main method. DO NOT MODIFY THIS METHOD.
 	 * 
 	 * The parameters of the java program are described below: **command**: java
-	 * Main [options] datafile **Options**: - -help : prints this parameter
-	 * description - -t (int) :maximum number of seconds given to the algorithm
-	 * - -v : trace level (print the solution at the end if true) - -g : if
-	 * stated, requires a graphical representation of the solution.
+	 * Main [options] datafile
+	 * **Options**:
+	 *  - -help : prints this parameter
+	 * description
+	 *  - -t (int) :maximum number of seconds given to the algorithm
+	 *  - -v : trace level (print the solution at the end if true)
+	 *  - -g : if stated, requires a graphical representation of the solution.
 	 * 
-	 * **Program output**: fileName;routeLength;time;e e is an error code: - e =
-	 * 0 -> the solution is feasible and returned within the time limit - e = 1
-	 * -> unfeasible solution - e= 2 -> overtime.
+	 * **Program output**: fileName;routeLength;time;e e is an error code:
+	 *  - e =
+	 * 0 -> the solution is feasible and returned within the time limit
+	 *  - e = 1
+	 * -> unfeasible solution
+	 *  - e= 2 -> overtime.
 	 * 
 	 * @param arg
 	 *            program parameters.

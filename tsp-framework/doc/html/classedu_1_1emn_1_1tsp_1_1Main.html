@@ -101,7 +101,7 @@ Static Public Member Functions</h2></td></tr>
 <p>DO NOT WRITE OR MODIFY THIS CLASS.</p>
 <p>Read the description of the <a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> method below, it describes how to set some parameters for the program (such as the filename of the problem to solve).</p>
 <p>When the program is run, the input data file is loaded in an <a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a> object. A <a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a> object is then created, given the <a class="el" href="classedu_1_1emn_1_1tsp_1_1Instance.html">Instance</a> object, and its solve method <a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html#a30de3860bd2d542d729c2932dc795f82">TSPSolver::solve</a> is called. This is where you have to code your algorithms.</p>
-<p>The class to be modified is <a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a>&lt;, from where you may also create your own classes.</p>
+<p>The class to be modified is <a class="el" href="classedu_1_1emn_1_1tsp_1_1TSPSolver.html">TSPSolver</a>, from where you may also create your own classes.</p>
 <dl class="section author"><dt>Author</dt><dd>Damien Prot, Fabien Lehuédé 2012 </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ad9bbacb9527b5ee1e295018a9a264dd3"></a>
@@ -126,11 +126,19 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p><a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> method. DO NOT MODIFY THIS METHOD.</p>
-<p>The parameters of the java program are described below: <b>command</b>: java <a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> [options] datafile <b>Options</b>: - -help : prints this parameter description - -t (int) :maximum number of seconds given to the algorithm</p>
+<p>The parameters of the java program are described below: <b>command</b>: java <a class="el" href="classedu_1_1emn_1_1tsp_1_1Main.html">Main</a> [options] datafile <b>Options</b>:</p>
 <ul>
-<li>-v : trace level (print the solution at the end if true) - -g : if stated, requires a graphical representation of the solution.</li>
+<li>-help : prints this parameter description</li>
+<li>-t (int) :maximum number of seconds given to the algorithm</li>
+<li>-v : trace level (print the solution at the end if true)</li>
+<li>-g : if stated, requires a graphical representation of the solution.</li>
 </ul>
-<p><b>Program output</b>: fileName;routeLength;time;e e is an error code: - e = 0 -&gt; the solution is feasible and returned within the time limit - e = 1 -&gt; unfeasible solution - e= 2 -&gt; overtime.</p>
+<p><b>Program output</b>: fileName;routeLength;time;e e is an error code:</p>
+<ul>
+<li>e = 0 -&gt; the solution is feasible and returned within the time limit</li>
+<li>e = 1 -&gt; unfeasible solution</li>
+<li>e= 2 -&gt; overtime.</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">arg</td><td>program parameters. </td></tr>
@@ -146,7 +154,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 28 2015 15:42:54 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 29 2015 11:00:56 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
