@@ -38,6 +38,28 @@ Run this command (this command will show the help).
 3. Run the program
 `java -cp ./bin/:lib/visuBeta.jar -Djava.library.path=./lib/ edu.emn.tsp.Main -help `
 
+#INSTANCES
+
+Some instances are provided for testing the framework. These instances come from the [TSPLIB](http://elib.zib.de/pub/mp-testdata/tsp/tsplib/tsp/index.html) and are symmetric. Optimal values for theses instances can be found in this [link](http://elib.zib.de/pub/mp-testdata/tsp/tsplib/stsp-sol.html).
+
+## Benchmark
+
+To run the framework over all instances, a script is available under the folder `/benchmark`. To run the script, you have to follow these commands.
+
+The script produces two files:
+
+1. standardOutput.txt : the standard output of the framework. `System.out.print` command in JAVA.
+2. errorOutput.txt : the error output of the framework. `System.err.print` command in JAVA.
+
+####Linux
+
+The script executes the framework over all instances. In a terminal:
+
+1. Go to the *benchmark* directory 
+`cd benchmark`
+2. Run the script
+`bash scriptUnix.sh`
+
 #DOCUMENTATION
 
 A [doxygen](http://www.stack.nl/~dimitri/doxygen/) documentation of the code is provided under the folder `/doc`.
