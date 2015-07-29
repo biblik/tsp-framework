@@ -78,8 +78,7 @@ public class TSPSolver {
 	 * Initializes the problem solution with a new Solution object (the old one
 	 * will be deleted).
 	 * 
-	 * @param sol
-	 *            : new solution
+	 * @param sol : new solution
 	 */
 	public void setSolution(Solution sol) {
 		this.m_solution = sol;
@@ -88,8 +87,7 @@ public class TSPSolver {
 	/**
 	 * Sets the problem data
 	 * 
-	 * @param inst
-	 *            : the Instance object which contains the data.
+	 * @param inst : the Instance object which contains the data.
 	 */
 	public void setInstance(Instance inst) {
 		this.m_instance = inst;
@@ -98,8 +96,7 @@ public class TSPSolver {
 	/**
 	 * Sets the time limit (in seconds).
 	 * 
-	 * @param time
-	 *            : time given to solve the problem
+	 * @param time : time given to solve the problem
 	 */
 	public void setTime(long time) {
 		this.m_time = time;
