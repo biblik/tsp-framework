@@ -124,6 +124,12 @@ public class TSPSolver {
 	 */
 	public void solve() throws Exception {
 
+		
+	    // Exemple simpliste où le sommet i est inséré en position i dans la
+	    // tournée.
+			for (int i=0; i < m_instance.getNbVertices(); i++) {
+				m_solution.setVertexPosition(i, i);
+			}
 	}
 
 }

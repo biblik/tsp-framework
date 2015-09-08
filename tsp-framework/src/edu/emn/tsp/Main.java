@@ -19,6 +19,7 @@
 
 package edu.emn.tsp;
 
+import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 
 /**
@@ -159,7 +160,9 @@ public class Main {
 			// If graphical and no error, draw
 			if (feasible && graphical) {
 				// Graphical solution
-				new Drawing(900, 700, tsp.getSolution());
+				int width = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
+				int height = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
+				new Drawing(width, height, tsp.getSolution());
 
 			}
 		} catch (IOException e) {
