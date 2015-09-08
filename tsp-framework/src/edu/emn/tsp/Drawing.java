@@ -103,8 +103,8 @@ public class Drawing {
 			int idTown = solution.getSolution(i);
 			int xTown = (int) ((instance.getX(idTown) - minX) / compressionFactorX);
 			int yTown = (int) ((instance.getY(idTown) - minY) / compressionFactorY);
-			// String labelTown = instance.getLabel(idTown);
-			String labelTown = "" + i;
+			 String labelTown = instance.getLabel(idTown);
+//			String labelTown = "" + i;
 			towns.add(new Point_(xTown, yTown, labelTown));
 
 		}
