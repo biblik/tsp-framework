@@ -29,9 +29,9 @@ import java.util.Scanner;
  * The Instance class allows to create an object that contains the data stored
  * in a tsp file. <br>
  * <br>
- * Only 2D EUCLIDEAN problems can be read, that is problems where the customer
+ * Only 2D EUCLIDEAN and GEOGRAPHICAL problems can be read, that is problems where the customer
  * coordinates are given and the distance between two customers is the euclidean
- * distance. <br>
+ * distance or the GEOGRAPHICAL one. <br>
  * <br>
  * The class is created through its constructor that takes the data file as
  * parameter. The data file is read and the data are stored in the Instance
@@ -54,6 +54,10 @@ public class Instance {
 	/** y coordinates for each customer */
 	private double[] m_y;
 
+	/**
+	 * Boolean for knowing if data are geographical
+	 */
+	private boolean isGeographic;
 	/**
 	 * Vertices labels (read from the TSP files).
 	 */
@@ -101,6 +105,16 @@ public class Instance {
 			throw new Exception("Error : vertex index " + i
 					+ " should range between 0 and " + (m_nbVertices - 1) + ".");
 		return m_y[i];
+	}
+
+	
+	
+	public boolean isGeographic() {
+		return isGeographic;
+	}
+
+	public void setGeographic(boolean isGeographic) {
+		this.isGeographic = isGeographic;
 	}
 
 	/**
@@ -182,6 +196,7 @@ public class Instance {
 
 	private void read() throws IOException {
 
+		
 		File mfile = new File(m_fileName);
 		if (!mfile.exists()) {
 			throw new IOException("The instance file : " + m_fileName
@@ -207,9 +222,20 @@ public class Instance {
 		do {
 			line = sc.nextLine();
 			System.err.println(line);
-		} while (!line.startsWith("NODE_COORD_SECTION"));
+		} while (!line.startsWith("EDGE_WEIGHT_TYPE"));
+		
+		if (line.endsWith("GEO")){
+			isGeographic= true;
+		}
+		else if (line.endsWith("EUC_2D")){
+			isGeographic=false;
+		}
+		else{
+			System.err.println("Distance is not handled");
+		}
 		line = sc.nextLine();
-
+		line = sc.nextLine();
+		
 		int idx = 0;
 		while ((!line.startsWith("EOF")) && (sc.hasNext())) {
 			assert (idx < m_nbVertices);
@@ -233,7 +259,12 @@ public class Instance {
 		for (int i = 0; i < m_nbVertices; i++) {
 			m_distances[i][i] = 0;
 			for (int j = i + 1; j < m_nbVertices; j++) {
-				long dist = distance(i, j);
+				long dist = -1;
+				if (isGeographic)
+					dist = geoDist(i,j); 
+				else
+					dist = distance(i, j);
+					
 				// System.out.println("Distance " + i + " " +j + ": " + dist);
 				m_distances[i][j] = dist;
 				m_distances[j][i] = dist;
@@ -242,6 +273,22 @@ public class Instance {
 
 		sc.close();
 		lineSc.close();
+	}
+
+	private long geoDist(int i, int j) {
+
+		double PI = 3.141592;
+		double longRadianI = PI*m_x[i]/180.0;
+		double latRadianI = PI*m_y[i]/180.0;
+		double longRadianJ = PI*m_x[j]/180.0;
+		double latRadianJ = PI*m_y[j]/180.0;
+		double RRR = 6378.388;
+		double q1 = Math.cos(longRadianI - longRadianJ);
+		double q2 = Math.cos(latRadianI - latRadianJ);
+		double q3 = Math.cos(latRadianI + latRadianJ);
+		
+		int res = (int) (RRR*Math.acos(0.5*((1.0+q1)*q2-(1.0-q1)*q3))+1.0);
+		return res;
 	}
 
 	/** Computes the distance between two vertices */
@@ -288,7 +335,7 @@ public class Instance {
 	}
 
 	private double getMax(double[] array) {
-		double maxVal = Double.MIN_VALUE;
+		double maxVal = -Double.MAX_VALUE;
 		for (int i = 0; i < m_nbVertices; i++) {
 			if (maxVal < array[i])
 				maxVal = array[i];
