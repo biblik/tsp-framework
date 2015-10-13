@@ -19,8 +19,11 @@
 
 package edu.emn.tsp;
 
-import java.awt.GraphicsEnvironment;
 import java.io.IOException;
+
+import gui.MainFrame;
+import resolution.Solution;
+import resolution.TSPSolver;
 
 /**
  * This class contains the Main function, that is the function that is launched
@@ -122,9 +125,15 @@ public class Main {
 			tsp.setSolution(new Solution(prob));
 			tsp.setTime(max_time);
 
-			// print the data [uncomment if wanted]
-			// prob.printData(System.err);
 
+			
+			// If graphical and no error, draw
+			if (graphical) {
+				// Graphical solution
+				MainFrame mf = new MainFrame(tsp);
+		        tsp.addObserver(mf);
+			}
+			
 			// Solve the problem
 			long t = System.currentTimeMillis();
 			tsp.solve();
@@ -157,14 +166,7 @@ public class Main {
 									+ tsp.getSolution().getError());
 			}
 
-			// If graphical and no error, draw
-			if (feasible && graphical) {
-				// Graphical solution
-				int width = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
-				int height = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
-				new Drawing(width, height, tsp.getSolution());
 
-			}
 		} catch (IOException e) {
 			System.err
 					.println("Error: An error has been met when reading the input file: "
