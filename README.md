@@ -34,9 +34,9 @@ Run this command (this command will show the help).
 1. Create a bin directory (if not exist)  
 `mkdir bin`
 2. Compil the project  
-`javac -d bin/ src/edu/emn/tsp/*.java -cp lib/visuBeta.jar` 
+`javac -d bin/ src/edu/emn/tsp/*.java -cp lib/gui.jar` 
 3. Run the program  
-`java -cp ./bin/:lib/visuBeta.jar -Djava.library.path=./lib/ edu.emn.tsp.Main -help `
+`java -cp ./bin/:lib/gui.jar -Djava.library.path=./lib/ edu.emn.tsp.Main -help `
 
 #INSTANCES
 
