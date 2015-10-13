@@ -83,7 +83,7 @@ import java.util.Arrays;
  * @author Fabien Lehuédé
  * 
  */
-public class Solution {
+public class Solution{
 
 	// --------------------------------------------
 	// --------------- ATTRIBUTS ------------------
@@ -211,7 +211,7 @@ public class Solution {
 		if ((i < 0) || (i > m_nbVertices))
 			throw new Exception(
 					"Error Instance.setVertexPosition(i,s): index i=" + i
-							+ ", must range between 0 and " + m_nbVertices);
+					+ ", must range between 0 and " + m_nbVertices);
 		if ((s < 0) || (s >= m_nbVertices))
 			throw new Exception(
 					"Error Instance.setVertexPosition(i,s) : vertex value s="
@@ -244,18 +244,18 @@ public class Solution {
 						"Error Instance.reverse(int firstIdx, int lastIdx)): index lastIdx="
 								+ lastIdx + ", must range between 0 and "
 								+ m_nbVertices);
-			else {
-				if (((firstIdx == 0) && (lastIdx < m_nbVertices))
-						|| ((firstIdx > 0) && (lastIdx == m_nbVertices))) {
-					System.err
-							.println("WARNING Instance.reverse(int firstIdx, int lastIdx)): \n firstIdx="
-									+ firstIdx
-									+ " , lastIdx="
-									+ lastIdx
-									+ ". The first and the last vertex of the solution will not be identical after this operation.");
-				}
-
-			}
+			//			else {
+			//				if (((firstIdx == 0) && (lastIdx < m_nbVertices))
+			//						|| ((firstIdx > 0) && (lastIdx == m_nbVertices))) {
+			//					System.err
+			//					.println("WARNING Instance.reverse(int firstIdx, int lastIdx)): \n firstIdx="
+			//							+ firstIdx
+			//							+ " , lastIdx="
+			//							+ lastIdx
+			//							+ ". The first and the last vertex of the solution will not be identical after this operation.");
+			//				}
+			//
+			//			}
 		}
 
 		if (firstIdx > 0) {
@@ -324,7 +324,7 @@ public class Solution {
 			m_error += "Error : The route should start and end with the same vertex.\n";
 			m_error += "The first vertex is " + m_solution[0]
 					+ " and the last vertex is " + m_solution[m_nbVertices]
-					+ ".\n";
+							+ ".\n";
 			result = false;
 		}
 
@@ -332,7 +332,7 @@ public class Solution {
 		int[] occurences = new int[m_nbVertices];
 		Arrays.fill(occurences, 0);
 		for (int i = 0; i < m_nbVertices; i++) { // the last vertex is not
-													// included
+			// included
 			occurences[m_solution[i]]++;
 		}
 		for (int i = 1; i < m_nbVertices; i++) {

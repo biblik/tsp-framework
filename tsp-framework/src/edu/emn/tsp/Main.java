@@ -22,8 +22,6 @@ package edu.emn.tsp;
 import java.io.IOException;
 
 import gui.MainFrame;
-import resolution.Solution;
-import resolution.TSPSolver;
 
 /**
  * This class contains the Main function, that is the function that is launched
