@@ -23,7 +23,8 @@ Follow these steps :
 
 ###Under ECLIPSE
 
-Run a java application. You must specify arguments. **Run**: `-help` for help.
+Run a java application. You must specify arguments.
+**Run**: `-help` for help.
 
 ###Command line
 
@@ -34,7 +35,18 @@ Run this command (this command will show the help).
 1. Create a bin directory (if not exist)  
 `mkdir bin`
 2. Compil the project  
-`javac -d bin/ src/edu/emn/tsp/*.java -cp lib/gui.jar` 
+`javac -d bin/ -cp lib/gui.jar src/edu/emn/tsp/*.java` 
+3. Run the program  
+`java -cp ./bin/:lib/gui.jar -Djava.library.path=./lib/ edu.emn.tsp.Main -help `
+
+####Windows
+
+Run this command (this command will show the help). To run the code under Windows, you must have a [JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) available.
+
+1. Create a bin directory (if not exist)  
+`mkdir bin`
+2. Compil the project
+`javac -d "./bin" -cp "./lib/gui.jar" ./src/edu/emn/*.java` 
 3. Run the program  
 `java -cp ./bin/:lib/gui.jar -Djava.library.path=./lib/ edu.emn.tsp.Main -help `
 
@@ -58,7 +70,17 @@ The script executes the framework over all instances. In a terminal:
 1. Go to the *benchmark* directory  
 `cd benchmark`
 2. Run the script  
-`bash scriptUnix.sh`
+`bash scriptUNIX.sh`
+
+####Windows
+
+The script executes the framework over all instances. In a terminal:
+
+1. Go to the *benchmark* directory  
+`cd benchmark`
+2. Run the script  
+`scriptWINDOWS.bat`
+
 
 #DOCUMENTATION
 
