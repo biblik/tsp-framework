@@ -52,7 +52,7 @@ Run this command (this command will show the help). To run the code under Window
 
 #INSTANCES
 
-Some instances are provided for testing the framework. These instances come from the [TSPLIB](http://elib.zib.de/pub/mp-testdata/tsp/tsplib/tsp/index.html) and are symmetric. Optimal values for theses instances can be found in this [link](http://elib.zib.de/pub/mp-testdata/tsp/tsplib/stsp-sol.html).
+Some instances are provided for testing the framework. These instances come from the [TSPLIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/tsp/) and are symmetric. Optimal values for theses instances can be found in this [link](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/STSP.html).
 
 ## Benchmark
 
