@@ -1,5 +1,12 @@
 package tsp;
 
+import tsp.heuristic.HCheapestInsertion;
+import tsp.heuristic.HClarkeWright;
+import tsp.heuristic.HFarthestInsertion;
+import tsp.heuristic.HNaiveHeuristic;
+import tsp.heuristic.HNearestNeighbor;
+import tsp.heuristic.HRandomInsertion;
+
 /**
  * 
  * This class is the place where you should enter your code and from which you can create your own objects.
@@ -69,8 +76,29 @@ public class TSPSolver {
 	 */
 	public void solve() throws Exception
 	{
-		// Initial solution : put city i at position i
-		//TODO
+		HNaiveHeuristic naiveHeuristic = new HNaiveHeuristic(m_instance);
+		m_solution = naiveHeuristic.solve();
+		m_solution.print(System.err);
+		
+		HCheapestInsertion cheapestInsertionHeuristic = new HCheapestInsertion(m_instance);
+		m_solution = cheapestInsertionHeuristic.solve();
+		m_solution.print(System.err);
+		
+		HRandomInsertion randomInsertionHeuristic = new HRandomInsertion(m_instance);
+		m_solution = randomInsertionHeuristic.solve();
+		m_solution.print(System.err);
+		
+		HFarthestInsertion farthestInsertionHeuristic = new HFarthestInsertion(m_instance);
+		m_solution = farthestInsertionHeuristic.solve();
+		m_solution.print(System.err);
+		
+		HNearestNeighbor nearestNeighborHeuristic = new HNearestNeighbor(m_instance,0);
+		m_solution = nearestNeighborHeuristic.solve();
+		m_solution.print(System.err);
+		
+		HClarkeWright clarkeWrightHeuristic = new HClarkeWright(m_instance);
+		m_solution = clarkeWrightHeuristic.solve();
+		m_solution.print(System.err);
 	}
 
 	// -----------------------------

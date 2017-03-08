@@ -195,7 +195,28 @@ public class Solution{
 			m_cities[swapfirst] = m_cities[swaplast];
 			m_cities[swaplast] = tmp;
 		}
-
+	}
+	
+	/** Insert a city at position p in the solution, knowing nbCitiesInSolution is the number of inserted cities in the solution.
+	 * 
+	 * @param city index of the city to insert
+	 * @param p insertion position
+	 * @param nbCitiesInSolution number of cities in the solution
+	 * @throws Exception returns an error if p is not a valid insertion position or city is not a valid vertex number. 
+	 */
+	public void insert(int city, int p, int nbCitiesInSolution) throws Exception
+	{
+		if ((p<0) || (p>nbCitiesInSolution))
+			throw new Exception("Error position insertion " + p + ", must range between 0 and "+nbCitiesInSolution);
+		if ((city < 0) || (city >= m_nbCities))
+			throw new Exception("Error Instance.setVertexPosition(i,s) : city value s="
+					+ city + ", must range between 0 and "	+ (m_nbCities - 1));
+		// shift vertices from p to nbVertices-1 to the right 
+		for(int i = nbCitiesInSolution-1; i >= p; i--)
+		{
+			m_cities[i+1]=m_cities[i];
+		}
+		m_cities[p]=city;
 	}
 
 	/**
