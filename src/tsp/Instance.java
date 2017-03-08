@@ -118,7 +118,10 @@ public class Instance {
 
 		int index = 0;
 		while ((!line.startsWith("EOF")) && (sc.hasNext())) {
-			assert (index < m_nbCities);
+			if(index > m_nbCities)
+			{
+				System.exit(1);
+			}
 			// System.out.println(line);
 			lineSc = new Scanner(line);
 			lineSc.useLocale(Locale.US);
