@@ -240,8 +240,8 @@ public class Solution{
 		// Check that all cities are visited
 		int[] occurences = new int[m_nbCities];
 		Arrays.fill(occurences, 0);
-		for (int i = 0; i < m_nbCities; i++) { // the last city is not
-			// included
+		for (int i = 0; i < m_nbCities; i++) { 
+			// the last city is not included
 			occurences[m_cities[i]]++;
 		}
 		for (int i = 1; i < m_nbCities; i++) {
