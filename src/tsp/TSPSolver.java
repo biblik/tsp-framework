@@ -70,14 +70,7 @@ public class TSPSolver {
 	public void solve() throws Exception
 	{
 		// Initial solution : put city i at position i
-		for(int i = 0; i < m_instance.getNbCities(); ++i)
-		{
-			m_solution.setCityPosition(i, i);
-		}
-		m_solution.setCityPosition(0, m_instance.getNbCities());
-		m_solution.evaluate();
-		m_solution.print(System.err);
-
+		//TODO
 	}
 
 	// -----------------------------
