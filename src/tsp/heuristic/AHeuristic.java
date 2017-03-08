@@ -21,16 +21,23 @@ abstract public class AHeuristic {
 	/** The solution built */
 	protected Solution m_solution;
 	
+	/** The name of the heuristic */
+	protected String m_name;
+	
+	
 	// -----------------------------
 	// ----- CONSTRUCTOR -----------
 	// -----------------------------
 	
 	/**
 	 * Constructor
+	 * @param instance the instance of the problem
+	 * @param name the name of the metaheuristic
 	 */
-	public AHeuristic(Instance instance) throws Exception {
+	public AHeuristic(Instance instance, String name) throws Exception {
 		m_instance = instance;
 		m_solution = new Solution(m_instance);
+		m_name = name;
 	}
 	
 	
@@ -51,6 +58,13 @@ abstract public class AHeuristic {
 	 */
 	public Solution getSolution() {
 		return m_solution;
+	}
+	
+	/**
+	 * Returns the name of the heuristic
+	 */
+	public String getName() {
+		return m_name;
 	}
 
 }

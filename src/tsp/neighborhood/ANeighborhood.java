@@ -28,6 +28,8 @@ abstract public class ANeighborhood {
 
 	/**
 	 * Constructor
+	 * @param instance the instance of the problem
+	 * @param name the name of the neighborhood
 	 */
 	public ANeighborhood(Instance instance, String name) throws Exception {
 		m_instance = instance;

@@ -1,25 +1,4 @@
-/*
-	tsp-framework
-	Copyright (C) 2012 Fabien Lehu�d� / Damien Prot
-
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along
-	with this program; if not, write to the Free Software Foundation, Inc.,
-	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
-
-package edu.emn.tsp;
-
-import java.util.Observable;
+package tsp;
 
 /**
  * 
@@ -29,37 +8,81 @@ import java.util.Observable;
  * 
  * The TSPSolver object is created by the Main class.
  * The other objects that are created in Main can be accessed through the following TSPSolver attributes: 
- * 	- {@link m_instance} :  the Instance object which contains the problem data
- * 	- {@link m_solution} : the Solution object to modify. This object will store the result of the program.
- * 	- {@link m_time} : the maximum time limit (in seconds) given to the program.
+ * 	- #m_instance :  the Instance object which contains the problem data
+ * 	- #m_solution : the Solution object to modify. This object will store the result of the program.
+ * 	- #m_timeLimit : the maximum time limit (in seconds) given to the program.
  *  
- * @author Damien Prot, Fabien Lehuédé 2012
+ * @author Damien Prot, Fabien Lehuede, Axel Grimault
+ * @version 2017
  * 
  */
-public class TSPSolver extends Observable{
+public class TSPSolver {
 
-	// ---------------------------------------------
-	// --------------- ATTRIBUTES ------------------
-	// ---------------------------------------------
+	// -----------------------------
+	// ----- ATTRIBUTS -------------
+	// -----------------------------
 
 	/**
-	 * The Traveling Salesman Problem Solution that will be returned by the
-	 * program
+	 * The Solution that will be returned by the program.
 	 */
 	private Solution m_solution;
 
-	/** The TSP data. */
+	/** The Instance of the problem. */
 	private Instance m_instance;
 
 	/** Time given to solve the problem. */
-	private long m_time;
+	private long m_timeLimit;
 
-	// --------------------------------------------
-	// ------------ GETTERS AND SETTERS -----------
-	// --------------------------------------------
+	
+	// -----------------------------
+	// ----- CONSTRUCTOR -----------
+	// -----------------------------
 
-	// These methods allow to access the class attributes from outside the
-	// class.
+	/**
+	 * Creates an object of the class Solution for the problem data loaded in Instance
+	 * @param instance the instance of the problem
+	 * @param timeLimit the time limit in seconds
+	 */
+	public TSPSolver(Instance instance, long timeLimit) {
+		m_instance = instance;
+		m_solution = new Solution(m_instance);
+		m_timeLimit = timeLimit;
+	}
+
+	// -----------------------------
+	// ----- METHODS ---------------
+	// -----------------------------
+
+	/**
+	 * **TODO** Modify this method to solve the problem.
+	 * 
+	 * Do not print text on the standard output (eg. using `System.out.print()` or `System.out.println()`).
+	 * This output is dedicated to the result analyzer that will be used to evaluate your code on multiple instances.
+	 * 
+	 * You can print using the error output (`System.err.print()` or `System.err.println()`).
+	 * 
+	 * When your algorithm terminates, make sure the attribute #m_solution in this class points to the solution you want to return.
+	 * 
+	 * You have to make sure that your algorithm does not take more time than the time limit #m_timeLimit.
+	 * 
+	 * @throws Exception may return some error, in particular if some vertices index are wrong.
+	 */
+	public void solve() throws Exception
+	{
+		// Initial solution : put city i at position i
+		for(int i = 0; i < m_instance.getNbCities(); ++i)
+		{
+			m_solution.setCityPosition(i, i);
+		}
+		m_solution.setCityPosition(0, m_instance.getNbCities());
+		m_solution.evaluate();
+		m_solution.print(System.err);
+
+	}
+
+	// -----------------------------
+	// ----- GETTERS / SETTERS -----
+	// -----------------------------
 
 	/** @return the problem Solution */
 	public Solution getSolution() {
@@ -72,79 +95,32 @@ public class TSPSolver extends Observable{
 	}
 
 	/** @return Time given to solve the problem */
-	public long getTime() {
-		return m_time;
+	public long getTimeLimit() {
+		return m_timeLimit;
 	}
 
 	/**
-	 * Initializes the problem solution with a new Solution object (the old one
-	 * will be deleted).
-	 * 
-	 * @param sol : new solution
+	 * Initializes the problem solution with a new Solution object (the old one will be deleted).
+	 * @param solution : new solution
 	 */
-	public void setSolution(Solution sol) {
-		this.m_solution = sol;
+	public void setSolution(Solution solution) {
+		this.m_solution = solution;
 	}
 
 	/**
 	 * Sets the problem data
-	 * 
-	 * @param inst : the Instance object which contains the data.
+	 * @param instance the Instance object which contains the data.
 	 */
-	public void setInstance(Instance inst) {
-		this.m_instance = inst;
+	public void setInstance(Instance instance) {
+		this.m_instance = instance;
 	}
 
 	/**
 	 * Sets the time limit (in seconds).
-	 * 
-	 * @param time : time given to solve the problem
+	 * @param time time given to solve the problem
 	 */
-	public void setTime(long time) {
-		this.m_time = time;
-	}
-
-	// --------------------------------------
-	// -------------- METHODS ---------------
-	// --------------------------------------
-
-	/**
-	 * Method to modify the solution shown in GUI
-	 * It has to be called each time you want to display a new solution
-	 * @param sol
-	 */
-	private void changeGUI(Solution sol) {
-		setChanged();
-		notifyObservers(sol);
-	}
-	/**
-	 * **TODO** Modify this method to solve the problem.
-	 * 
-	 * Do not print text on the standard output (eg. using <code>System.out.print()</code> or <code>System.out.println()</code>).
-	 * This output is dedicated to the result analyzer that will be used to evaluate your code on multiple instances.
-	 * 
-	 * You can print using the error output (<code>System.err.print()</code> or <code>System.err.println()</code>).
-	 * 
-	 * When your algorithm terminates, make sure the attribute {@link m_solution} in this class points to the solution you want to return.
-	 * 
-	 * You have to make sure that your algorithm does not take more time than the time limit {@link m_time}.
-	 * 
-	 * @throws Exception
-	 *             May return some error, in particular if some vertices index
-	 *             are wrong.
-	 */
-	public void solve() throws Exception
-	{
-		// Initial solution : put node i at position i
-		for(int i = 0; i < m_instance.getNbVertices(); ++i)
-		{
-			m_solution.setVertexPosition(i, i);
-		}
-		m_solution.setVertexPosition(0, m_instance.getNbVertices());
-		m_solution.evaluate();
-		changeGUI(m_solution);
-		m_solution.print(System.err);
-
+	public void setTimeLimit(long time) {
+		this.m_timeLimit = time;
 	}
 
 }

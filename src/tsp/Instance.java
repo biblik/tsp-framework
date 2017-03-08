@@ -1,23 +1,4 @@
-/*
-	tsp-framework
-	Copyright (C) 2012 Fabien Lehuédé / Damien Prot
-
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along
-	with this program; if not, write to the Free Software Foundation, Inc.,
-	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
-
-package edu.emn.tsp;
+package tsp;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,31 +18,29 @@ import java.util.Scanner;
  * parameter. The data file is read and the data are stored in the Instance
  * object. The data can then be access calling the object methods.
  * 
- * @author Fabien Lehuédé
- * 
+ * @author Damien Prot, Fabien Lehuede, Axel Grimault
+ * @version 2017
  */
 public class Instance {
 
-	// --------------------------------------------
-	// --------------- ATTRIBUTES ------------------
-	// --------------------------------------------
+	// -----------------------------
+	// ----- ATTRIBUTS -------------
+	// -----------------------------
 
-	/** Number of vertices. */
-	private int m_nbVertices;
-	/** x coordinates for each customer */
+	/** Number of cities. */
+	private int m_nbCities;
+
+	/** x coordinates for each city */
 	private double[] m_x;
 
-	/** y coordinates for each customer */
+	/** y coordinates for each city */
 	private double[] m_y;
 
-	/**
-	 * Boolean for knowing if data are geographical
-	 */
-	private boolean isGeographic;
-	/**
-	 * Vertices labels (read from the TSP files).
-	 */
-	private String[] labels;
+	/** Boolean for knowing if data are geographical */
+	private boolean m_isGeographic;
+
+	/** Cities labels (read from the TSP files). */
+	private String[] m_labels;
 
 	/** Distance matrix */
 	private long[][] m_distances;
@@ -69,92 +48,315 @@ public class Instance {
 	/** TSP file from the Euclidean tsp files of the TSPLib that is loaded. */
 	private String m_fileName;
 
-	// -----------------------------------------
-	// --------------- METHODS -----------------
-	// -----------------------------------------
 
-	/** @return the number of vertices in the problem */
-	public int getNbVertices() {
-		return m_nbVertices;
+
+	// -----------------------------
+	// ----- CONSTRUCTOR -----------
+	// -----------------------------
+
+	/**
+	 * Constructor: this method creates an object of class Instance. It calls
+	 * the read method to load the data file given as parameter.
+	 * 
+	 * @param fileName instance file
+	 * @throws IOException Returns an error when a problem is met reading the data file.
+	 */
+	public Instance(String fileName) throws IOException {
+		m_fileName = fileName;
+		parse();
+	}
+	
+	
+	// -----------------------------
+	// ----- METHODS ---------------
+	// -----------------------------
+
+	/**
+	 * Parse the input file to construct Instance		
+	 */
+	private void parse() throws IOException {
+
+		File mfile = new File(m_fileName);
+		if (!mfile.exists()) {
+			throw new IOException("The instance file : " + m_fileName + " does not exist.");
+		}
+		Scanner sc = new Scanner(mfile);
+
+		String line;
+		do
+		{
+			line = sc.nextLine();
+			System.err.println(line);
+		} while (!line.startsWith("DIMENSION"));
+
+		Scanner lineSc = new Scanner(line);
+		lineSc.next();
+		if (!lineSc.hasNextInt()) {
+			lineSc.next();
+		}
+		m_nbCities = lineSc.nextInt();
+		m_x = new double[m_nbCities];
+		m_y = new double[m_nbCities];
+		m_labels = new String[m_nbCities];
+
+		do {
+			line = sc.nextLine();
+			System.err.println(line);
+		} while (!line.startsWith("EDGE_WEIGHT_TYPE"));
+
+		if (line.endsWith("GEO")){
+			m_isGeographic= true;
+		}
+		else if (line.endsWith("EUC_2D")){
+			m_isGeographic=false;
+		}
+		else{
+			System.err.println("Distance is not handled");
+		}
+		line = sc.nextLine();
+		line = sc.nextLine();
+
+		int index = 0;
+		while ((!line.startsWith("EOF")) && (sc.hasNext())) {
+			assert (index < m_nbCities);
+			// System.out.println(line);
+			lineSc = new Scanner(line);
+			lineSc.useLocale(Locale.US);
+			m_labels[index] = lineSc.next();
+			m_x[index] = lineSc.nextDouble();
+			m_y[index] = lineSc.nextDouble();
+			line = sc.nextLine();
+			index++;
+		}
+
+		// Create the distance matrix
+		m_distances = new long[m_nbCities][];
+		for (int i = 0; i < m_nbCities; i++) {
+			m_distances[i] = new long[m_nbCities];
+		}
+
+		// Compute distances
+		for (int i = 0; i < m_nbCities; i++) {
+			m_distances[i][i] = 0;
+			for (int j = i + 1; j < m_nbCities; j++) {
+				long dist = -1;
+				if (m_isGeographic)
+				{
+					dist = geoDist(i,j); 
+				}
+				else
+				{
+					dist = distance(i, j);
+				}
+				m_distances[i][j] = dist;
+				m_distances[j][i] = dist;
+			}
+		}
+
+		sc.close();
+		lineSc.close();
 	}
 
 	/**
-	 * @param i
-	 *            vertex number (should be defined between 0 an the number of
-	 *            vertices in the problem minus one). Note the vertex number is
-	 *            not the label !
-	 * @return the x coordinate of vertex i.
+	 * Computes the geographical distance between two cities
+	 * @param i the first index
+	 * @param j the second index
+	 * @return the geographical distance between i and j 
+	 */
+	private long geoDist(int i, int j) {
+
+		double PI = 3.141592;
+		double longRadianI = PI*m_x[i]/180.0;
+		double latRadianI = PI*m_y[i]/180.0;
+		double longRadianJ = PI*m_x[j]/180.0;
+		double latRadianJ = PI*m_y[j]/180.0;
+		double RRR = 6378.388;
+		double q1 = Math.cos(longRadianI - longRadianJ);
+		double q2 = Math.cos(latRadianI - latRadianJ);
+		double q3 = Math.cos(latRadianI + latRadianJ);
+
+		int res = (int) (RRR*Math.acos(0.5*((1.0+q1)*q2-(1.0-q1)*q3))+1.0);
+		return res;
+	}
+
+	/**
+	 * 
+	 * @param i the first index
+	 * @param j the second index
+	 * @return the euclidian distance between i and j 
+	 */
+	private long distance(int i, int j) {
+		double dx = m_x[i] - m_x[j];
+		double dy = m_y[i] - m_y[j];
+		return (long) Math.rint(Math.hypot(dx, dy));
+	}
+
+	/**
+	 * @return the greatest x coordinate.
+	 */
+	public double getMaxX() {
+
+		return getMax(m_x);
+	}
+
+	/**
+	 * @return the greatest y coordinate.
+	 */
+	public double getMaxY() {
+
+		return getMax(m_y);
+	}
+
+	/**
+	 * @return the smallest x
+	 */
+	public double getMinX() {
+
+		return getMin(m_x);
+	}
+
+	/**
+	 * @return the smallest y
+	 */
+	public double getMinY() {
+
+		return getMin(m_y);
+	}
+
+	/**
+	 * Compute the maximum value of an array
+	 * @param array an array
+	 * @return the maximum value
+	 */
+	private double getMax(double[] array) {
+		double maxVal = -Double.MAX_VALUE;
+		for (int i = 0; i < m_nbCities; i++) {
+			if (maxVal < array[i]) {
+				maxVal = array[i];
+			}
+		}
+
+		return maxVal;
+	}
+
+	/**
+	 * Compute the minimum value of an array
+	 * @param array an array
+	 * @return the minimum value
+	 */
+	private double getMin(double[] array) {
+		double minVal = Double.MAX_VALUE;
+		for (int i = 0; i < m_nbCities; i++) {
+			if (minVal > array[i]) {
+				minVal = array[i];
+			}
+		}
+
+		return minVal;
+	}
+
+	/**
+	 * Print data on the output given as a parameter.
+	 * 
+	 * @param out : output stream
+	 */
+	public void print(PrintStream out) {
+
+		out.println("Distance matrix:");
+		for (int i = 0; i < m_nbCities; i++) {
+			for (int j = 0; j < m_nbCities; j++) {
+				out.print(m_distances[i][j] + ";");
+			}
+			out.println();
+		}
+		out.println();
+	}
+
+	// -----------------------------
+	// ----- GETTERS / SETTERS -----
+	// -----------------------------
+
+	/** @return the number of cities in the problem */
+	public int getNbCities() {
+		return m_nbCities;
+	}
+
+	/**
+	 * @param i city number (should be defined between 0 an the number of
+	 *          cities in the problem minus one). Note the city number is
+	 *          not the label !
+	 * @return the x coordinate of city i.
+	 * @throws Exception
 	 **/
 	public double getX(int i) throws Exception {
-		if ((i < 0) || (i >= m_nbVertices))
-			throw new Exception("Error : vertex index " + i
-					+ " should range between 0 and " + (m_nbVertices - 1) + ".");
+		if((i < 0) || (i >= m_nbCities)) {
+			throw new Exception("Error : city index " + i + " should range between 0 and " + (m_nbCities - 1) + ".");
+		}
 		return m_x[i];
 	}
 
 	/**
-	 * @param i
-	 *            vertex number (should be defined between 0 an the number of
-	 *            vertices in the problem minus one). Note the vertex number is
-	 *            not the label !
-	 * @return the y coordinate of vertex i.
+	 * @param i city number (should be defined between 0 an the number of
+	 *          cities in the problem minus one). Note the city number is
+	 *          not the label !
+	 * @return the y coordinate of city i.
 	 * @throws Exception
 	 **/
 	public double getY(int i) throws Exception {
-		if ((i < 0) || (i >= m_nbVertices))
-			throw new Exception("Error : vertex index " + i
-					+ " should range between 0 and " + (m_nbVertices - 1) + ".");
+		if((i < 0) || (i >= m_nbCities)) {
+			throw new Exception("Error : city index " + i + " should range between 0 and " + (m_nbCities - 1) + ".");
+		}
 		return m_y[i];
 	}
 
-	
-	
-	public boolean isGeographic() {
-		return isGeographic;
-	}
-
-	public void setGeographic(boolean isGeographic) {
-		this.isGeographic = isGeographic;
+	/**
+	 * Boolean to set if coordinates are geographical or not
+	 **/
+	public boolean m_isGeographic() {
+		return m_isGeographic;
 	}
 
 	/**
-	 * @param i
-	 *            vertex number (should be defined between 0 an the number of
-	 *            vertices in the problem minus one). Note the vertex number is
-	 *            not the label !
-	 * @return vertex i label.
+	 * Set the coordinates attribute
+	 * @param isGeographic the value of the coordinate `true` if coordinates are geographical
+	 **/
+	public void setGeographic(boolean isGeographic) {
+		this.m_isGeographic = isGeographic;
+	}
+
+	/**
+	 * @param i city number (should be defined between 0 an the number of cities in the problem minus one).
+	 * 		**Note the city number is not the label !**
+	 * @return the label of city i.
 	 * @throws Exception
 	 **/
 	public String getLabel(int i) throws Exception {
-		if ((i < 0) || (i >= m_nbVertices))
-			throw new Exception("Error : vertex index " + i
-					+ " should range between 0 and " + (m_nbVertices - 1) + ".");
-		return labels[i];
+		if((i < 0) || (i >= m_nbCities)) {
+			throw new Exception("Error : city index " + i + " should range between 0 and " + (m_nbCities - 1) + ".");
+		}
+		return m_labels[i];
 	}
 
 	/**
 	 * Returns the euclidean distance rounded to the nearest integer value
-	 * between two vertices. All distances are calculated when the tsp file is
+	 * between two cities. All distances are calculated when the tsp file is
 	 * loaded, so this function does not calculate distances. Note: problems are
-	 * symmetric, the distance from vertex i to vertex j is equal to the
+	 * symmetric, the distance from city i to city j is equal to the
 	 * distance from j to i.
 	 * 
-	 * @param i
-	 *            origin vertex (should range between 0 and nbVertex-1).
-	 * @param j
-	 *            destination vertex (should range between 0 and nbVertex-1).
+	 * @param i origin city (should range between 0 and nbcity-1).
+	 * @param j destination city (should range between 0 and nbcity-1).
 	 * @return Returns the euclidean distance from i to j rounded to the nearest
 	 *         integer value
-	 * @throws Exception
-	 *             returns an error if i or j are not valid vertex numbers.
+	 * @throws Exception returns an error if i or j are not valid city numbers.
 	 **/
 	public long getDistances(int i, int j) throws Exception {
-		if ((i < 0) || (i >= m_nbVertices))
-			throw new Exception("Error : vertex index " + i
-					+ " should range between 0 and " + (m_nbVertices - 1) + ".");
-		if ((j < 0) || (j >= m_nbVertices))
-			throw new Exception("Error : vertex index " + j
-					+ " should range between 0 and " + (m_nbVertices - 1) + ".");
+		if((i < 0) || (i >= m_nbCities)) {
+			throw new Exception("Error : city index " + i + " should range between 0 and " + (m_nbCities - 1) + ".");
+		}
+		if((j < 0) || (j >= m_nbCities)) {
+			throw new Exception("Error : city index " + j + " should range between 0 and " + (m_nbCities - 1) + ".");
+		}
 		return m_distances[i][j];
 	}
 
@@ -170,216 +372,6 @@ public class Instance {
 	 */
 	public String getFileName() {
 		return m_fileName;
-	}
-
-	// -------------------------------------
-	// ------------ CONSTRUCTOR ------------
-	// -------------------------------------
-
-	/**
-	 * Constructor: this method creates an object of class Instance. It calls
-	 * the read method to load the data file given as parameter.
-	 * 
-	 * @param fileName
-	 *            instance file
-	 * @throws IOException
-	 *             Returns an error when a problem is met reading the data file.
-	 */
-	public Instance(String fileName) throws IOException {
-		m_fileName = fileName;
-		read();
-	}
-
-	// -------------------------------------
-	// -------------- METHODS --------------
-	// -------------------------------------
-
-	private void read() throws IOException {
-
-		
-		File mfile = new File(m_fileName);
-		if (!mfile.exists()) {
-			throw new IOException("The instance file : " + m_fileName
-					+ " does not exist.");
-		}
-		Scanner sc = new Scanner(mfile);
-
-		String line;
-		do {
-			line = sc.nextLine();
-			System.err.println(line);
-		} while (!line.startsWith("DIMENSION"));
-		Scanner lineSc = new Scanner(line);
-		lineSc.next();
-		if (!lineSc.hasNextInt()) {
-			lineSc.next();
-		}
-		m_nbVertices = lineSc.nextInt();
-		m_x = new double[m_nbVertices];
-		m_y = new double[m_nbVertices];
-		labels = new String[m_nbVertices];
-
-		do {
-			line = sc.nextLine();
-			System.err.println(line);
-		} while (!line.startsWith("EDGE_WEIGHT_TYPE"));
-		
-		if (line.endsWith("GEO")){
-			isGeographic= true;
-		}
-		else if (line.endsWith("EUC_2D")){
-			isGeographic=false;
-		}
-		else{
-			System.err.println("Distance is not handled");
-		}
-		line = sc.nextLine();
-		line = sc.nextLine();
-		
-		int idx = 0;
-		while ((!line.startsWith("EOF")) && (sc.hasNext())) {
-			assert (idx < m_nbVertices);
-			// System.out.println(line);
-			lineSc = new Scanner(line);
-			lineSc.useLocale(Locale.US);
-			labels[idx] = lineSc.next();
-			m_x[idx] = lineSc.nextDouble();
-			m_y[idx] = lineSc.nextDouble();
-			line = sc.nextLine();
-			idx++;
-		}
-
-		// Create the distance matrix
-		m_distances = new long[m_nbVertices][];
-		for (int i = 0; i < m_nbVertices; i++) {
-			m_distances[i] = new long[m_nbVertices];
-		}
-
-		// Compute distances
-		for (int i = 0; i < m_nbVertices; i++) {
-			m_distances[i][i] = 0;
-			for (int j = i + 1; j < m_nbVertices; j++) {
-				long dist = -1;
-				if (isGeographic)
-					dist = geoDist(i,j); 
-				else
-					dist = distance(i, j);
-					
-				// System.out.println("Distance " + i + " " +j + ": " + dist);
-				m_distances[i][j] = dist;
-				m_distances[j][i] = dist;
-			}
-		}
-
-		sc.close();
-		lineSc.close();
-	}
-
-	/**
-	 * \brief Computes the geographical distance between two vertices
-	 * @param i : the first index
-	 * @param j : the second index
-	 * @return : the geographical distance between i and j 
-	 */
-	private long geoDist(int i, int j) {
-
-		double PI = 3.141592;
-		double longRadianI = PI*m_x[i]/180.0;
-		double latRadianI = PI*m_y[i]/180.0;
-		double longRadianJ = PI*m_x[j]/180.0;
-		double latRadianJ = PI*m_y[j]/180.0;
-		double RRR = 6378.388;
-		double q1 = Math.cos(longRadianI - longRadianJ);
-		double q2 = Math.cos(latRadianI - latRadianJ);
-		double q3 = Math.cos(latRadianI + latRadianJ);
-		
-		int res = (int) (RRR*Math.acos(0.5*((1.0+q1)*q2-(1.0-q1)*q3))+1.0);
-		return res;
-	}
-
-	/**
-	 * 
-	 * @param i : the first index
-	 * @param j : the second index
-	 * @return : the euclidian distance between i and j 
-	 */
-	private long distance(int i, int j) {
-		double dx = m_x[i] - m_x[j];
-		double dy = m_y[i] - m_y[j];
-		return (long) Math.rint(Math.hypot(dx, dy));
-	}
-
-	/**
-	 * 
-	 * @return the greatest x coordinate.
-	 */
-	public double getMaxX() {
-
-		return getMax(m_x);
-	}
-
-	/**
-	 * 
-	 * @return the greatest y coordinate.
-	 */
-	public double getMaxY() {
-
-		return getMax(m_y);
-	}
-
-	/**
-	 * 
-	 * @return the smallest x
-	 */
-	public double getMinX() {
-
-		return getMin(m_x);
-	}
-
-	/**
-	 * 
-	 * @return the smallest y
-	 */
-	public double getMinY() {
-
-		return getMin(m_y);
-	}
-
-	private double getMax(double[] array) {
-		double maxVal = -Double.MAX_VALUE;
-		for (int i = 0; i < m_nbVertices; i++) {
-			if (maxVal < array[i])
-				maxVal = array[i];
-		}
-
-		return maxVal;
-	}
-
-	private double getMin(double[] array) {
-		double minVal = Double.MAX_VALUE;
-		for (int i = 0; i < m_nbVertices; i++) {
-			if (minVal > array[i])
-				minVal = array[i];
-		}
-
-		return minVal;
-	}
-
-	/**
-	 * Print data on the output given as a parameter.
-	 * 
-	 * @param out : output stream
-	 */
-	public void print(PrintStream out) {
-
-		out.println("Distance matrix:");
-		for (int i = 0; i < m_nbVertices; i++) {
-			for (int j = 0; j < m_nbVertices; j++) {
-				out.print(m_distances[i][j] + ";");
-			}
-			out.println();
-		}
-		out.println();
 	}
 
 }

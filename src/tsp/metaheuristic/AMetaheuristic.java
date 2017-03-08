@@ -28,6 +28,8 @@ abstract public class AMetaheuristic {
 
 	/**
 	 * Constructor
+	 * @param instance the instance of the problem
+	 * @param name the name of the metaheuristic
 	 */
 	public AMetaheuristic(Instance instance, String name) throws Exception {
 		m_instance = instance;

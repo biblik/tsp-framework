@@ -1,6 +1,5 @@
 /*
 	tsp-framework
-	Copyright (C) 2012 Fabien Lehuédé / Damien Prot
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -17,11 +16,9 @@
 	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package edu.emn.tsp;
+package tsp;
 
 import java.io.IOException;
-
-import gui.MainFrame;
 
 /**
  * This class contains the Main function, that is the function that is launched
@@ -40,106 +37,87 @@ import gui.MainFrame;
  * The class to be modified is TSPSolver, from where you may also create your
  * own classes.
  * 
- * @author Damien Prot, Fabien Lehuédé 2012
+ * @author Damien Prot, Fabien Lehuede, Axel Grimault
+ * @version 2017
  * 
  */
 public class Main {
 
 	/**
-	 * Main method. DO NOT MODIFY THIS METHOD.
+	 * Main method.
 	 * 
-	 * The parameters of the java program are described below: **command**: java
-	 * Main [options] datafile
+	 * DO NOT MODIFY THIS METHOD.
+	 * 
+	 * The parameters of the java program are described below:
+	 * 
+	 * **command**: java Main [options] datafile
+	 * 
 	 * **Options**:
-	 *  - -help : prints this parameter
-	 * description
+	 *  - -help : prints this parameter description
 	 *  - -t (int) :maximum number of seconds given to the algorithm
 	 *  - -v : trace level (print the solution at the end if true)
-	 *  - -g : if stated, requires a graphical representation of the solution.
 	 * 
-	 * **Program output**: fileName;routeLength;time;e e is an error code:
-	 *  - e =
-	 * 0 -> the solution is feasible and returned within the time limit
-	 *  - e = 1
-	 * -> unfeasible solution
-	 *  - e= 2 -> overtime.
+	 * **Program output**: fileName;routeLength;time;e 
 	 * 
-	 * @param arg
-	 *            program parameters.
+	 * e is an error code:
+	 *  - e = 0 -> the solution is feasible and returned within the time limit
+	 *  - e = 1 -> unfeasible solution
+	 *  - e = 2 -> overtime.
+	 * 
+	 * @param args program parameters.
 	 */
-	public static void main(String[] arg) {
+	public static void main(String[] args) {
 		String filename = null;
 		long max_time = 60;
 		boolean verbose = false;
-		boolean graphical = false;
 
 		// Parse commande line
-		for (int i = 0; i < arg.length; i++) {
-			if (arg[i].compareTo("-help") == 0) {
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].compareTo("-help") == 0) {
 				System.err.println("The Traveling Salesman Problem");
 				System.err.println("Program parameters:");
 				System.err.println("command: java Main [options] dataFile");
 				System.err.println("Options:");
-				System.err
-						.println("\t-help\t: prints this parameter description");
-				System.err
-						.println("\t-t\t\t: maximum number of seconds given to the algorithm (int)");
+				System.err.println("\t-help\t: prints this parameter description");
+				System.err.println("\t-t\t\t: maximum number of seconds given to the algorithm (int)");
 				System.err.println("\t-v\t\t: trace level");
-				System.err
-						.println("\t-g\t\t: if stated, requires a graphical representation of the solution.");
 				return;
 
-			} else if (arg[i].compareTo("-v") == 0) {
+			} else if (args[i].compareTo("-v") == 0) {
 				verbose = true;
-			} else if (arg[i].compareTo("-t") == 0) {
+			} else if (args[i].compareTo("-t") == 0) {
 				try {
-					max_time = Integer.parseInt(arg[++i]);
+					max_time = Integer.parseInt(args[++i]);
 				} catch (Exception e) {
-					System.out
-							.println("Error: The time given for -t is not a valid integer value.");
+					System.out.println("Error: The time given for -t is not a valid integer value.");
 					System.exit(1);
 				}
-			} else if (arg[i].compareTo("-g") == 0) {
-				graphical = true;
 			} else {
 				if (filename != null) {
-					System.err
-							.println("Error: There is a problem in the program parameters.");
-					System.err.println("Value " + arg[i]
-							+ " is not a valid parameter.");
+					System.err.println("Error: There is a problem in the program parameters.");
+					System.err.println("Value " + args[i] + " is not a valid parameter.");
 					System.exit(1);
 				}
-				filename = arg[i];
+				filename = args[i];
 			}
 		}
 
 		// Create and solve problem
 		try {
-			// Create a new problem
-			TSPSolver tsp = new TSPSolver();
+			
 			// Read data
-			Instance prob = new Instance(filename);
-			tsp.setInstance(prob);
-			tsp.setSolution(new Solution(prob));
-			tsp.setTime(max_time);
-
-
+			Instance data = new Instance(filename);
 			
-			// If graphical and no error, draw
-			if (graphical) {
-				// Graphical solution
-				MainFrame mf = new MainFrame(tsp);
-		        tsp.addObserver(mf);
-			}
-			
+			// Create a new problem
+			TSPSolver tsp = new TSPSolver(data,max_time);
+
 			// Solve the problem
 			long t = System.currentTimeMillis();
 			tsp.solve();
 			t = System.currentTimeMillis() - t;
 
 			// Evaluate the solution (and check whether it is feasible)
-
-			boolean feasible = tsp.getSolution().validate();
+			boolean feasible = tsp.getSolution().isFeasible();
 
 			int e = 0;
 			if (!feasible) {
@@ -152,26 +130,22 @@ public class Main {
 				}
 			}
 			System.out.println(filename + ";"
-					+ tsp.getSolution().getObjective() + ";" + t + ";" + e);
+					+ tsp.getSolution().getObjectiveValue() + ";" + t + ";" + e);
 
 			// If verbose, print the solution
 			if (verbose) {
-				prob.print(System.err);
+				data.print(System.err);
 				tsp.getSolution().print(System.err);
 				if (e == 1)
-					System.err
-							.println("Error: There is an error in the solution: "
-									+ tsp.getSolution().getError());
+					System.err.println("Error: There is an error in the solution: " + tsp.getSolution().getError());
 			}
 
 
 		} catch (IOException e) {
-			System.err
-					.println("Error: An error has been met when reading the input file: "
-							+ e.getMessage());
+			System.err.println("Error: An error has been met when reading the input file: " + e.getMessage());
 			System.exit(1);
 		} catch (Exception e) {
-			System.err.printf("Error: %s", e.getMessage());
+			System.err.println("Error: " + e.getMessage());
 			System.err.println();
 			e.printStackTrace(System.err);
 			System.exit(1);

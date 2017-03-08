@@ -2,7 +2,7 @@
 
 This is a JAVA framework for the Traveling Salesman Problem (TSP).
 
-This framework was created by Fabien Léhuédé and Damien Prot for pedagogic issues at [Ecole des Mines de Nantes](http://www.mines-nantes.fr/).
+This framework was created by Fabien Léhuédé, Damien Prot and Axel Grimault for pedagogic issues at [Institut Mines Télécom Atlantique](https://www.imt-atlantique.fr/).
 
 #INSTALLATION
 
@@ -35,9 +35,9 @@ Run this command (this command will show the help).
 1. Create a bin directory (if not exist)  
 `mkdir bin`
 2. Compil the project  
-`javac -d bin/ -cp lib/gui.jar src/edu/emn/tsp/*.java` 
+`javac -d bin/ src/tsp/*.java` 
 3. Run the program  
-`java -cp ./bin/:lib/gui.jar -Djava.library.path=./lib/ edu.emn.tsp.Main -help `
+`java -cp ./bin/ -Djava.library.path=./lib/ edu.Main -help `
 
 ####Windows
 
@@ -46,9 +46,9 @@ Run this command (this command will show the help). To run the code under Window
 1. Create a bin directory (if not exist)  
 `mkdir bin`
 2. Compil the project
-`javac -d "./bin" -cp "./lib/gui.jar" ./src/edu/emn/*.java` 
+`javac -d "./bin" ./src/*.java` 
 3. Run the program  
-`java -cp ./bin/:lib/gui.jar -Djava.library.path=./lib/ edu.emn.tsp.Main -help `
+`java -cp ./bin/ -Djava.library.path=./lib/ tsp.Main -help `
 
 #INSTANCES
 
