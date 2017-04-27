@@ -20,6 +20,8 @@ package tsp;
 
 import java.io.IOException;
 
+import tsp.gui.TSPGUI;
+
 /**
  * This class contains the Main function, that is the function that is launched
  * when the program is run.
@@ -55,6 +57,7 @@ public class Main {
 	 * **Options**:
 	 *  - -help : prints this parameter description
 	 *  - -t (int) :maximum number of seconds given to the algorithm
+	 *  - -g : graphical output of the solution
 	 *  - -v : trace level (print the solution at the end if true)
 	 * 
 	 * **Program output**: fileName;routeLength;time;e 
@@ -70,6 +73,7 @@ public class Main {
 		String filename = null;
 		long max_time = 60;
 		boolean verbose = false;
+		boolean graphical = false;
 
 		// Parse commande line
 		for (int i = 0; i < args.length; i++) {
@@ -80,11 +84,14 @@ public class Main {
 				System.err.println("Options:");
 				System.err.println("\t-help\t: prints this parameter description");
 				System.err.println("\t-t\t\t: maximum number of seconds given to the algorithm (int)");
+				System.err.println("\t-g\t\t: raphical output of the solution");
 				System.err.println("\t-v\t\t: trace level");
 				return;
 
 			} else if (args[i].compareTo("-v") == 0) {
 				verbose = true;
+			} else if (args[i].compareTo("-g") == 0) {
+				graphical = true;
 			} else if (args[i].compareTo("-t") == 0) {
 				try {
 					max_time = Integer.parseInt(args[++i]);
@@ -129,6 +136,12 @@ public class Main {
 					System.err.println("Error: Time limit exeeced !!!");
 				}
 			}
+			
+			if(graphical)
+			{
+				TSPGUI gui = new TSPGUI(tsp.getSolution());
+			}
+			
 			System.out.println(filename + ";"
 					+ tsp.getSolution().getObjectiveValue() + ";" + t + ";" + e);
 

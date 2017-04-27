@@ -105,10 +105,10 @@ public class Instance {
 		} while (!line.startsWith("EDGE_WEIGHT_TYPE"));
 
 		if (line.endsWith("GEO")){
-			m_isGeographic= true;
+			m_isGeographic = true;
 		}
 		else if (line.endsWith("EUC_2D")){
-			m_isGeographic=false;
+			m_isGeographic = false;
 		}
 		else{
 			System.err.println("Distance is not handled");
@@ -153,6 +153,17 @@ public class Instance {
 				}
 				m_distances[i][j] = dist;
 				m_distances[j][i] = dist;
+			}
+		}
+		
+		if(m_isGeographic)
+		{
+			for(int i = 0; i < m_nbCities; i++)
+			{
+				double tempX = ((680/360.0) * (180 + m_x[i]));
+				double tempY = ((680/360.0) * (180 + m_y[i]));
+				m_x[i] = tempX;
+				m_y[i] = -tempY;
 			}
 		}
 

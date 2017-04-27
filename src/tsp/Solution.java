@@ -267,7 +267,7 @@ public class Solution{
 		}
 		for (int i = 1; i < m_nbCities; i++) {
 			if (occurences[i] != 1) {
-				m_error += "Error : the city " + (i + 1) + " is visited "
+				m_error += "Error : the city " + (i) + " is visited "
 						+ occurences[i] + " times.\n";
 				result = false;
 			}
