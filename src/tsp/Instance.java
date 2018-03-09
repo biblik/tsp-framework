@@ -47,6 +47,9 @@ public class Instance {
 
 	/** TSP file from the Euclidean tsp files of the TSPLib that is loaded. */
 	private String m_fileName;
+	
+	/** Instance type */
+	private int m_typeInstance;
 
 
 
@@ -61,9 +64,17 @@ public class Instance {
 	 * @param fileName instance file
 	 * @throws IOException Returns an error when a problem is met reading the data file.
 	 */
-	public Instance(String fileName) throws IOException {
+	public Instance(String fileName, int typeInstance) throws IOException {
 		m_fileName = fileName;
-		parse();
+		m_typeInstance = typeInstance;
+		if(m_typeInstance == 1)
+		{
+			parseEdgeInstance();
+		}
+		else
+		{
+			parse();
+		}
 	}
 	
 	
@@ -165,6 +176,70 @@ public class Instance {
 				m_x[i] = tempX;
 				m_y[i] = -tempY;
 			}
+		}
+
+		sc.close();
+		lineSc.close();
+	}
+	
+	/**
+	 * Parse the input file to construct Instance		
+	 */
+	private void parseEdgeInstance() throws IOException {
+
+		File mfile = new File(m_fileName);
+		if (!mfile.exists()) {
+			throw new IOException("The instance file : " + m_fileName + " does not exist.");
+		}
+		Scanner sc = new Scanner(mfile);
+
+		String line;
+		do
+		{
+			line = sc.nextLine();
+			System.err.println(line);
+		} while (!line.startsWith("DIMENSION"));
+
+		Scanner lineSc = new Scanner(line);
+		lineSc.next();
+		if (!lineSc.hasNextInt()) {
+			lineSc.next();
+		}
+		m_nbCities = lineSc.nextInt();
+		m_x = new double[m_nbCities];
+		m_y = new double[m_nbCities];
+		m_labels = new String[m_nbCities];
+
+		do {
+			line = sc.nextLine();
+			System.err.println(line);
+		} while (!line.startsWith("EDGE_WEIGHT_SECTION"));
+
+
+		int index = 0;
+
+		// Create the distance matrix
+		m_distances = new long[m_nbCities][];
+		for (int i = 0; i < m_nbCities; i++) {
+			m_distances[i] = new long[m_nbCities];
+			m_x[i] = 0;
+			m_x[i] = 0;
+			m_labels[i] = Integer.toString(i);
+		}
+		
+		line = sc.nextLine();
+		// Compute distances
+		for (int i = 0; i < m_nbCities-1; i++) {
+			m_distances[i][i] = 0;
+			lineSc = new Scanner(line);
+			lineSc.useLocale(Locale.US);
+			for (int j = i + 1; j < m_nbCities; j++) {
+				long dist = lineSc.nextInt();
+				System.out.println(dist);
+				m_distances[i][j] = dist;
+				m_distances[j][i] = dist;
+			}
+			line = sc.nextLine();
 		}
 
 		sc.close();

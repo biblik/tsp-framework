@@ -74,6 +74,7 @@ public class Main {
 		long max_time = 60;
 		boolean verbose = false;
 		boolean graphical = false;
+		int typeInstance = 0;
 
 		// Parse commande line
 		for (int i = 0; i < args.length; i++) {
@@ -84,7 +85,7 @@ public class Main {
 				System.err.println("Options:");
 				System.err.println("\t-help\t: prints this parameter description");
 				System.err.println("\t-t\t\t: maximum number of seconds given to the algorithm (int)");
-				System.err.println("\t-g\t\t: raphical output of the solution");
+				System.err.println("\t-g\t\t: graphical output of the solution");
 				System.err.println("\t-v\t\t: trace level");
 				return;
 
@@ -97,6 +98,13 @@ public class Main {
 					max_time = Integer.parseInt(args[++i]);
 				} catch (Exception e) {
 					System.out.println("Error: The time given for -t is not a valid integer value.");
+					System.exit(1);
+				}
+			} else if (args[i].compareTo("-i") == 0) {
+				try {
+					typeInstance = Integer.parseInt(args[++i]);
+				} catch (Exception e) {
+					System.out.println("error : the type of instance is not a valid type");
 					System.exit(1);
 				}
 			} else {
@@ -113,7 +121,7 @@ public class Main {
 		try {
 			
 			// Read data
-			Instance data = new Instance(filename);
+			Instance data = new Instance(filename, typeInstance);
 			
 			// Create a new problem
 			TSPSolver tsp = new TSPSolver(data,max_time);

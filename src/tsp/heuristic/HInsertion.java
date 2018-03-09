@@ -53,6 +53,7 @@ abstract public class HInsertion extends AHeuristic
 				farthestDistance = distance;
 			}
 		}
+		System.out.println("Farthest city "+farthestCity);
 		m_solution.setCityPosition(farthestCity, 1);
 		m_solution.setCityPosition(0,2);
 		m_isVisited[0]=true;
@@ -61,11 +62,4 @@ abstract public class HInsertion extends AHeuristic
 	}
 	
 }
-
-
-
-
-
-
-
 

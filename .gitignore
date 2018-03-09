@@ -1,1 +1,16 @@
 bin/
+src/tsp/heuristic/HCheapestInsertion.java
+src/tsp/heuristic/HClarkeWright.java
+src/tsp/heuristic/HFarthestInsertion.java
+src/tsp/heuristic/HNaiveHeuristic.java
+src/tsp/heuristic/HNearestNeighbor.java
+src/tsp/heuristic/HRandomInsertion.java
+src/tsp/heuristic/Saving.java
+src/tsp/localsearch/
+src/tsp/neighborhood/N2OptBest.java
+src/tsp/neighborhood/N2OptFirst.java
+src/tsp/neighborhood/N3OptBest.java
+src/tsp/neighborhood/NOrKOpt.java
+src/tsp/neighborhood/NOrOpt.java
+src/tsp/neighborhood/NSwapBest.java
+src/tsp/neighborhood/NSwapFirst.java

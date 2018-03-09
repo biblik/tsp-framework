@@ -6,6 +6,12 @@ import tsp.heuristic.HFarthestInsertion;
 import tsp.heuristic.HNaiveHeuristic;
 import tsp.heuristic.HNearestNeighbor;
 import tsp.heuristic.HRandomInsertion;
+import tsp.localsearch.LocalSearch;
+import tsp.neighborhood.ANeighborhood;
+import tsp.neighborhood.N2OptBest;
+import tsp.neighborhood.NOrOpt;
+import tsp.neighborhood.NSwapBest;
+import tsp.neighborhood.NSwapFirst;
 
 /**
  * 
@@ -76,29 +82,47 @@ public class TSPSolver {
 	 */
 	public void solve() throws Exception
 	{
-		HNaiveHeuristic naiveHeuristic = new HNaiveHeuristic(m_instance);
-		m_solution = naiveHeuristic.solve();
-		m_solution.print(System.err);
+//		HNaiveHeuristic naiveHeuristic = new HNaiveHeuristic(m_instance);
+//		m_solution = naiveHeuristic.solve();
+//		m_solution.print(System.err);
+//		
+//		HCheapestInsertion cheapestInsertionHeuristic = new HCheapestInsertion(m_instance);
+//		m_solution = cheapestInsertionHeuristic.solve();
+//		m_solution.print(System.err);
+//		
+//		HRandomInsertion randomInsertionHeuristic = new HRandomInsertion(m_instance);
+//		m_solution = randomInsertionHeuristic.solve();
+//		m_solution.print(System.err);
 		
-		HCheapestInsertion cheapestInsertionHeuristic = new HCheapestInsertion(m_instance);
-		m_solution = cheapestInsertionHeuristic.solve();
-		m_solution.print(System.err);
+//		HFarthestInsertion farthestInsertionHeuristic = new HFarthestInsertion(m_instance);
+//		m_solution = farthestInsertionHeuristic.solve();
+//		m_solution.print(System.err);
 		
-		HRandomInsertion randomInsertionHeuristic = new HRandomInsertion(m_instance);
-		m_solution = randomInsertionHeuristic.solve();
-		m_solution.print(System.err);
-		
-		HFarthestInsertion farthestInsertionHeuristic = new HFarthestInsertion(m_instance);
-		m_solution = farthestInsertionHeuristic.solve();
-		m_solution.print(System.err);
+//		HClarkeWright clarkeWrightHeuristic = new HClarkeWright(m_instance);
+//		m_solution = clarkeWrightHeuristic.solve();
+//		m_solution.print(System.err);
 		
 		HNearestNeighbor nearestNeighborHeuristic = new HNearestNeighbor(m_instance,0);
 		m_solution = nearestNeighborHeuristic.solve();
 		m_solution.print(System.err);
 		
-		HClarkeWright clarkeWrightHeuristic = new HClarkeWright(m_instance);
-		m_solution = clarkeWrightHeuristic.solve();
-		m_solution.print(System.err);
+		N2OptBest opt = new N2OptBest(m_instance, "2Opt Best");
+		NSwapBest swap = new NSwapBest(m_instance, "Swap Best");
+		NOrOpt oropt = new NOrOpt(m_instance, "OrOpt Best");
+		
+		ANeighborhood[] listNeighborhoods = {opt,swap,oropt};
+		
+		m_solution = LocalSearch.VND(m_solution,listNeighborhoods);
+		
+//		NSwapFirst swapFirst = new NSwapFirst(m_instance, "First SWAP");
+//		Solution firstSwapSolution = swapFirst.getNeighborhood(m_solution);
+//		firstSwapSolution.print(System.err);
+//		
+//		NSwapBest swapBest = new NSwapBest(m_instance, "Best SWAP");
+//		Solution bestSwapSolution = swapBest.getNeighborhood(m_solution);
+//		bestSwapSolution.print(System.err);
+
+		
 	}
 
 	// -----------------------------
