@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tspsolver',['TSPSolver',['../classtsp_1_1TSPSolver.html',1,'tsp']]]
+  ['main',['Main',['../classtsp_1_1Main.html',1,'tsp']]]
 ];

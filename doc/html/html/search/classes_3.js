@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['solution',['Solution',['../classtsp_1_1Solution.html',1,'tsp']]]
+  ['localsearch',['LocalSearch',['../classtsp_1_1localsearch_1_1LocalSearch.html',1,'tsp::localsearch']]]
 ];

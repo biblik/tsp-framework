@@ -61,6 +61,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -96,8 +97,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab9e3057787a3f8d1d30f1dbf6c30d20a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Instance.html#ab9e3057787a3f8d1d30f1dbf6c30d20a">Instance</a> (String fileName)  throws IOException </td></tr>
-<tr class="separator:ab9e3057787a3f8d1d30f1dbf6c30d20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae035e937c11c3832e06cf562f470a21e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Instance.html#ae035e937c11c3832e06cf562f470a21e">Instance</a> (String fileName, int typeInstance)  throws IOException </td></tr>
+<tr class="separator:ae035e937c11c3832e06cf562f470a21e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace537c157ffb558343c9a38796987dd1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Instance.html#ace537c157ffb558343c9a38796987dd1">getMaxX</a> ()</td></tr>
 <tr class="separator:ace537c157ffb558343c9a38796987dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff99be18538e727e6aa8b9de7c96f781"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Instance.html#aff99be18538e727e6aa8b9de7c96f781">getMaxY</a> ()</td></tr>
@@ -131,6 +132,8 @@ Public Member Functions</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a5da3c45779c2f68d2dd778397a8c5a80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Instance.html#a5da3c45779c2f68d2dd778397a8c5a80">parse</a> ()  throws IOException </td></tr>
 <tr class="separator:a5da3c45779c2f68d2dd778397a8c5a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad74d35af39f72f607caf4accfdf19330"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Instance.html#ad74d35af39f72f607caf4accfdf19330">parseEdgeInstance</a> ()  throws IOException </td></tr>
+<tr class="separator:ad74d35af39f72f607caf4accfdf19330"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a206b729ec6d3a60fec221da682977bd7"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Instance.html#a206b729ec6d3a60fec221da682977bd7">geoDist</a> (int i, int j)</td></tr>
 <tr class="separator:a206b729ec6d3a60fec221da682977bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b5052d74e48c1d0d446c65fa1384bb3"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Instance.html#a8b5052d74e48c1d0d446c65fa1384bb3">distance</a> (int i, int j)</td></tr>
@@ -156,6 +159,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a4c42ab8847c846127bedc10b5e0d2a93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f2d8b0e7d2be9b969592c43a9f96c71"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Instance.html#a5f2d8b0e7d2be9b969592c43a9f96c71">m_fileName</a></td></tr>
 <tr class="separator:a5f2d8b0e7d2be9b969592c43a9f96c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d49c11a443dc31600eecf0aa9253814"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Instance.html#a4d49c11a443dc31600eecf0aa9253814">m_typeInstance</a></td></tr>
+<tr class="separator:a4d49c11a443dc31600eecf0aa9253814"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classtsp_1_1Instance.html">Instance</a> class allows to create an object that contains the data stored in a tsp file. <br />
@@ -166,7 +171,7 @@ Private Attributes</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Damien Prot, Fabien Lehuede, Axel Grimault </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>2017 </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ab9e3057787a3f8d1d30f1dbf6c30d20a"></a>
+<a class="anchor" id="ae035e937c11c3832e06cf562f470a21e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -174,8 +179,18 @@ Private Attributes</h2></td></tr>
           <td class="memname">tsp.Instance.Instance </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>fileName</em></td><td>)</td>
-          <td> throws IOException</td>
+          <td class="paramname"><em>fileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>typeInstance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> throws IOException</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -622,6 +637,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad74d35af39f72f607caf4accfdf19330"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tsp.Instance.parseEdgeInstance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> throws IOException</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Parse the input file to construct <a class="el" href="classtsp_1_1Instance.html">Instance</a> </p>
+
+</div>
+</div>
 <a class="anchor" id="af3fac8f6b1104d6cbfaa15228aaa6e71"></a>
 <div class="memitem">
 <div class="memproto">
@@ -773,6 +812,27 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a4d49c11a443dc31600eecf0aa9253814"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int tsp.Instance.m_typeInstance</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classtsp_1_1Instance.html">Instance</a> type </p>
+
+</div>
+</div>
 <a class="anchor" id="ab2240aa726970ffc17d8f328dec8ab9a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -821,7 +881,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 8 2017 10:01:16 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 13 2018 12:05:49 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

@@ -61,6 +61,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -103,6 +104,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac412146a40e865c6f0b2b8e44e4ba5e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37db5814f907897b4c9af97f9a4532ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Solution.html#a37db5814f907897b4c9af97f9a4532ad">reverse</a> (int firstIndex, int lastIndex)  throws Exception </td></tr>
 <tr class="separator:a37db5814f907897b4c9af97f9a4532ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1e2ba866d73e23ec8ea24f6bc698c28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Solution.html#ab1e2ba866d73e23ec8ea24f6bc698c28">insert</a> (int city, int p, int nbCitiesInSolution)  throws Exception 	</td></tr>
+<tr class="separator:ab1e2ba866d73e23ec8ea24f6bc698c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab96d9400180cc1854a1a48b848f92a4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Solution.html#aab96d9400180cc1854a1a48b848f92a4">evaluate</a> ()  throws Exception </td></tr>
 <tr class="separator:aab96d9400180cc1854a1a48b848f92a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93a7045acd93ccac25da9c471618f9bc"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsp_1_1Solution.html#a93a7045acd93ccac25da9c471618f9bc">isFeasible</a> ()  throws Exception </td></tr>
@@ -289,6 +292,53 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The objective value of the function. This value should be updated when the solution is modified, either calling <a class="el" href="classtsp_1_1Solution.html#aab96d9400180cc1854a1a48b848f92a4">evaluate</a> which recomputes the cost or <a class="el" href="classtsp_1_1Solution.html#a5cff3a62643a336a021da631afd9f9cb">setObjectiveValue</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab1e2ba866d73e23ec8ea24f6bc698c28"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tsp.Solution.insert </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>city</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbCitiesInSolution</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> throws Exception</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Insert a city at position p in the solution, knowing nbCitiesInSolution is the number of inserted cities in the solution.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">city</td><td>index of the city to insert </td></tr>
+    <tr><td class="paramname">p</td><td>insertion position </td></tr>
+    <tr><td class="paramname">nbCitiesInSolution</td><td>number of cities in the solution </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td>returns an error if p is not a valid insertion position or city is not a valid vertex number. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -569,7 +619,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 8 2017 10:01:16 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 13 2018 12:05:49 for TSP Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>
