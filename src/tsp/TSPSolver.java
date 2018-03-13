@@ -87,13 +87,14 @@ public class TSPSolver {
 		m_solution.print(System.err);
 		
 		// Example of a time loop
-		long t = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
+		long spentTime = 0;
 		do
 		{
 			// TODO
 			// Code a loop base on time here
-			t = System.currentTimeMillis() - t;
-		}while(t < (m_timeLimit + 1) * 1000);
+			spentTime = System.currentTimeMillis() - spentTime;
+		}while(spentTime < (m_timeLimit * 1000 - 100) );
 		
 	}
 
