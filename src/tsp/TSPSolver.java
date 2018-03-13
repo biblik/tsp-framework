@@ -1,18 +1,5 @@
 package tsp;
 
-import tsp.heuristic.HCheapestInsertion;
-import tsp.heuristic.HClarkeWright;
-import tsp.heuristic.HFarthestInsertion;
-import tsp.heuristic.HNaiveHeuristic;
-import tsp.heuristic.HNearestNeighbor;
-import tsp.heuristic.HRandomInsertion;
-import tsp.localsearch.LocalSearch;
-import tsp.neighborhood.ANeighborhood;
-import tsp.neighborhood.N2OptBest;
-import tsp.neighborhood.NOrOpt;
-import tsp.neighborhood.NSwapBest;
-import tsp.neighborhood.NSwapFirst;
-
 /**
  * 
  * This class is the place where you should enter your code and from which you can create your own objects.
@@ -82,8 +69,8 @@ public class TSPSolver {
 	 */
 	public void solve() throws Exception
 	{
-		HNaiveHeuristic naiveHeuristic = new HNaiveHeuristic(m_instance);
-		m_solution = naiveHeuristic.solve();
+		//HNaiveHeuristic naiveHeuristic = new HNaiveHeuristic(m_instance);
+		//m_solution = naiveHeuristic.solve();
 		m_solution.print(System.err);
 		
 		// Example of a time loop

@@ -35,9 +35,9 @@ Run this command (this command will show the help).
 1. Create a bin directory (if not exist)  
 `mkdir bin`
 2. Compil the project  
-`javac -d ./../bin/ ./../src/tsp/*.java -cp ./../lib/plot.jar` 
+`javac -d ./bin/ -sourcepath src/ ./src/tsp/Main.java` 
 3. Run the program  
-`java -cp "./../bin/:./../lib/plot.jar" -Djava.library.path=./../lib/tsp.Main -help `
+`java -cp ./bin/ tsp.Main -help `
 
 #### Windows
 
@@ -46,9 +46,9 @@ Run this command (this command will show the help). To run the code under Window
 1. Create a bin directory (if not exist)  
 `mkdir bin`
 2. Compil the project
-`javac -d "./../bin/" ./../src/tsp/*.java -cp "./../lib/plot.jar"` 
+`javac -d "./bin/" -sourcepath "src/"" ./src/tsp/Main.java "` 
 3. Run the program  
-`java -cp "./../bin/:./../lib/plot.jar" -Djava.library.path="./../lib/" tsp.Main -help `
+`java -cp "./bin/" tsp.Main -help `
 
 # INSTANCES
 

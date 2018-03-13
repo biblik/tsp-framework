@@ -8,11 +8,10 @@
 rm -f standardOutput.txt
 rm -f errorOutput.txt
 
-javac -d ./../bin/ ./../src/edu/emn/tsp/*.java -cp ./../lib/gui.jar
+javac -d ./../bin/ -sourcepath ./../src/ ./../src/tsp/*.java
 
 for i in ./../instances/*.tsp;do
 	sleep 1;
 	echo "Executing instance ".$i
-	java -cp "./../bin/:./../lib/gui.jar" -Djava.library.path=./../lib/ edu.emn.tsp.Main -t 60 $i >> standardOutput.txt 2>> errorOutput.txt
+	java -cp ./../bin/ tsp.Main -t 60 $i >> standardOutput.txt 2>> errorOutput.txt
 done
-
