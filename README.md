@@ -17,7 +17,7 @@ Follow these steps :
 1. Download an [archive zip](https://github.com/biblik/tsp-framework/archive/master.zip) of the project from github
 2. Open Eclipse
 3. Import a project (General->Existing Projects into Workspace) (*click on next*)
-4. Select archive file (select the archive you downloaded at step 1). Under projects, select the mkp-framework (*click on Finish*)
+4. Select archive file (select the archive you downloaded at step 1). Under projects, select the tsp-framework (*click on Finish*)
 
 # RUNNING
 
